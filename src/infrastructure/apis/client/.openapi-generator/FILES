@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 apis/AuthorizationApi.ts
 apis/UserApi.ts
 apis/UserFileApi.ts
@@ -21,3 +22,4 @@ models/UserFileDTOPagedResponseRequestResponse.ts
 models/UserRoleEnum.ts
 models/UserUpdateDTO.ts
 models/index.ts
+runtime.ts

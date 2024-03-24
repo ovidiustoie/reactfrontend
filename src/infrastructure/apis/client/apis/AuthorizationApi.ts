@@ -17,13 +17,13 @@ import * as runtime from '../runtime';
 import type {
   LoginDTO,
   LoginResponseDTORequestResponse,
-} from '../models';
+} from '../models/index';
 import {
     LoginDTOFromJSON,
     LoginDTOToJSON,
     LoginResponseDTORequestResponseFromJSON,
     LoginResponseDTORequestResponseToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ApiAuthorizationLoginPostRequest {
     loginDTO?: LoginDTO;
@@ -44,7 +44,7 @@ export class AuthorizationApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // Bearer authentication
         }
 
         const response = await this.request({
@@ -52,7 +52,7 @@ export class AuthorizationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: LoginDTOToJSON(requestParameters.loginDTO),
+            body: LoginDTOToJSON(requestParameters['loginDTO']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LoginResponseDTORequestResponseFromJSON(jsonValue));

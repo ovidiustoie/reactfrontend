@@ -17,13 +17,13 @@ import * as runtime from '../runtime';
 import type {
   RequestResponse,
   UserFileDTOPagedResponseRequestResponse,
-} from '../models';
+} from '../models/index';
 import {
     RequestResponseFromJSON,
     RequestResponseToJSON,
     UserFileDTOPagedResponseRequestResponseFromJSON,
     UserFileDTOPagedResponseRequestResponseToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ApiUserFileAddPostRequest {
     file?: Blob;
@@ -53,7 +53,7 @@ export class UserFileApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // Bearer authentication
         }
 
         const consumes: runtime.Consume[] = [
@@ -72,12 +72,12 @@ export class UserFileApi extends runtime.BaseAPI {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters.file !== undefined) {
-            formParams.append('File', requestParameters.file as any);
+        if (requestParameters['file'] != null) {
+            formParams.append('File', requestParameters['file'] as any);
         }
 
-        if (requestParameters.description !== undefined) {
-            formParams.append('Description', requestParameters.description as any);
+        if (requestParameters['description'] != null) {
+            formParams.append('Description', requestParameters['description'] as any);
         }
 
         const response = await this.request({
@@ -101,8 +101,11 @@ export class UserFileApi extends runtime.BaseAPI {
     /**
      */
     async apiUserFileDownloadIdGetRaw(requestParameters: ApiUserFileDownloadIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiUserFileDownloadIdGet.');
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling apiUserFileDownloadIdGet().'
+            );
         }
 
         const queryParameters: any = {};
@@ -110,11 +113,11 @@ export class UserFileApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // Bearer authentication
         }
 
         const response = await this.request({
-            path: `/api/UserFile/Download/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/UserFile/Download/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -135,22 +138,22 @@ export class UserFileApi extends runtime.BaseAPI {
     async apiUserFileGetPageGetRaw(requestParameters: ApiUserFileGetPageGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserFileDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.search !== undefined) {
-            queryParameters['Search'] = requestParameters.search;
+        if (requestParameters['search'] != null) {
+            queryParameters['Search'] = requestParameters['search'];
         }
 
-        if (requestParameters.page !== undefined) {
-            queryParameters['Page'] = requestParameters.page;
+        if (requestParameters['page'] != null) {
+            queryParameters['Page'] = requestParameters['page'];
         }
 
-        if (requestParameters.pageSize !== undefined) {
-            queryParameters['PageSize'] = requestParameters.pageSize;
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['PageSize'] = requestParameters['pageSize'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // Bearer authentication
         }
 
         const response = await this.request({

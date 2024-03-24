@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -24,22 +24,20 @@ export interface LoginDTO {
      * @type {string}
      * @memberof LoginDTO
      */
-    email?: string | null;
+    email?: string;
     /**
      * 
      * @type {string}
      * @memberof LoginDTO
      */
-    password?: string | null;
+    password?: string;
 }
 
 /**
  * Check if a given object implements the LoginDTO interface.
  */
 export function instanceOfLoginDTO(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function LoginDTOFromJSON(json: any): LoginDTO {
@@ -47,27 +45,24 @@ export function LoginDTOFromJSON(json: any): LoginDTO {
 }
 
 export function LoginDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): LoginDTO {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'password': !exists(json, 'password') ? undefined : json['password'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'password': json['password'] == null ? undefined : json['password'],
     };
 }
 
 export function LoginDTOToJSON(value?: LoginDTO | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'email': value.email,
-        'password': value.password,
+        'email': value['email'],
+        'password': value['password'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -31,7 +31,7 @@ export interface RequestResponse {
      * @type {string}
      * @memberof RequestResponse
      */
-    readonly response?: string | null;
+    readonly response?: string;
     /**
      * 
      * @type {ErrorMessage}
@@ -44,9 +44,7 @@ export interface RequestResponse {
  * Check if a given object implements the RequestResponse interface.
  */
 export function instanceOfRequestResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function RequestResponseFromJSON(json: any): RequestResponse {
@@ -54,26 +52,23 @@ export function RequestResponseFromJSON(json: any): RequestResponse {
 }
 
 export function RequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): RequestResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'response': !exists(json, 'response') ? undefined : json['response'],
-        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': json['response'] == null ? undefined : json['response'],
+        'errorMessage': json['errorMessage'] == null ? undefined : ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
 export function RequestResponseToJSON(value?: RequestResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'errorMessage': ErrorMessageToJSON(value.errorMessage),
+        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
     };
 }
 

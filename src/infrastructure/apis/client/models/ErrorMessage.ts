@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { ErrorCodes } from './ErrorCodes';
 import {
     ErrorCodesFromJSON,
@@ -37,7 +37,7 @@ export interface ErrorMessage {
      * @type {string}
      * @memberof ErrorMessage
      */
-    message?: string | null;
+    message?: string;
     /**
      * 
      * @type {ErrorCodes}
@@ -56,9 +56,7 @@ export interface ErrorMessage {
  * Check if a given object implements the ErrorMessage interface.
  */
 export function instanceOfErrorMessage(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function ErrorMessageFromJSON(json: any): ErrorMessage {
@@ -66,29 +64,26 @@ export function ErrorMessageFromJSON(json: any): ErrorMessage {
 }
 
 export function ErrorMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): ErrorMessage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'code': !exists(json, 'code') ? undefined : ErrorCodesFromJSON(json['code']),
-        'status': !exists(json, 'status') ? undefined : HttpStatusCodeFromJSON(json['status']),
+        'message': json['message'] == null ? undefined : json['message'],
+        'code': json['code'] == null ? undefined : ErrorCodesFromJSON(json['code']),
+        'status': json['status'] == null ? undefined : HttpStatusCodeFromJSON(json['status']),
     };
 }
 
 export function ErrorMessageToJSON(value?: ErrorMessage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'message': value.message,
-        'code': ErrorCodesToJSON(value.code),
-        'status': HttpStatusCodeToJSON(value.status),
+        'message': value['message'],
+        'code': ErrorCodesToJSON(value['code']),
+        'status': HttpStatusCodeToJSON(value['status']),
     };
 }
 

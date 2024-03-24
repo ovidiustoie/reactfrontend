@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -50,9 +50,7 @@ export interface UserDTORequestResponse {
  * Check if a given object implements the UserDTORequestResponse interface.
  */
 export function instanceOfUserDTORequestResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function UserDTORequestResponseFromJSON(json: any): UserDTORequestResponse {
@@ -60,27 +58,24 @@ export function UserDTORequestResponseFromJSON(json: any): UserDTORequestRespons
 }
 
 export function UserDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserDTORequestResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'response': !exists(json, 'response') ? undefined : UserDTOFromJSON(json['response']),
-        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': json['response'] == null ? undefined : UserDTOFromJSON(json['response']),
+        'errorMessage': json['errorMessage'] == null ? undefined : ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
 export function UserDTORequestResponseToJSON(value?: UserDTORequestResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'response': UserDTOToJSON(value.response),
-        'errorMessage': ErrorMessageToJSON(value.errorMessage),
+        'response': UserDTOToJSON(value['response']),
+        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
     };
 }
 
