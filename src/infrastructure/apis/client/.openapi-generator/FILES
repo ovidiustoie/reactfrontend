@@ -19,6 +19,7 @@ models/UserDTORequestResponse.ts
 models/UserFileDTO.ts
 models/UserFileDTOPagedResponse.ts
 models/UserFileDTOPagedResponseRequestResponse.ts
+models/UserRegisterDTO.ts
 models/UserRoleEnum.ts
 models/UserUpdateDTO.ts
 models/index.ts

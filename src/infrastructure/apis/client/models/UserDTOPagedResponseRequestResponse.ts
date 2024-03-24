@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -50,7 +50,9 @@ export interface UserDTOPagedResponseRequestResponse {
  * Check if a given object implements the UserDTOPagedResponseRequestResponse interface.
  */
 export function instanceOfUserDTOPagedResponseRequestResponse(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function UserDTOPagedResponseRequestResponseFromJSON(json: any): UserDTOPagedResponseRequestResponse {
@@ -58,24 +60,27 @@ export function UserDTOPagedResponseRequestResponseFromJSON(json: any): UserDTOP
 }
 
 export function UserDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'response': json['response'] == null ? undefined : UserDTOPagedResponseFromJSON(json['response']),
-        'errorMessage': json['errorMessage'] == null ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': !exists(json, 'response') ? undefined : UserDTOPagedResponseFromJSON(json['response']),
+        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
 export function UserDTOPagedResponseRequestResponseToJSON(value?: UserDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': UserDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': UserDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

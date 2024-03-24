@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { UserFileDTO } from './UserFileDTO';
 import {
     UserFileDTOFromJSON,
@@ -49,14 +49,16 @@ export interface UserFileDTOPagedResponse {
      * @type {Array<UserFileDTO>}
      * @memberof UserFileDTOPagedResponse
      */
-    data?: Array<UserFileDTO>;
+    data?: Array<UserFileDTO> | null;
 }
 
 /**
  * Check if a given object implements the UserFileDTOPagedResponse interface.
  */
 export function instanceOfUserFileDTOPagedResponse(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function UserFileDTOPagedResponseFromJSON(json: any): UserFileDTOPagedResponse {
@@ -64,28 +66,31 @@ export function UserFileDTOPagedResponseFromJSON(json: any): UserFileDTOPagedRes
 }
 
 export function UserFileDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserFileDTOPagedResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'page': json['page'] == null ? undefined : json['page'],
-        'pageSize': json['pageSize'] == null ? undefined : json['pageSize'],
-        'totalCount': json['totalCount'] == null ? undefined : json['totalCount'],
-        'data': json['data'] == null ? undefined : ((json['data'] as Array<any>).map(UserFileDTOFromJSON)),
+        'page': !exists(json, 'page') ? undefined : json['page'],
+        'pageSize': !exists(json, 'pageSize') ? undefined : json['pageSize'],
+        'totalCount': !exists(json, 'totalCount') ? undefined : json['totalCount'],
+        'data': !exists(json, 'data') ? undefined : (json['data'] === null ? null : (json['data'] as Array<any>).map(UserFileDTOFromJSON)),
     };
 }
 
 export function UserFileDTOPagedResponseToJSON(value?: UserFileDTOPagedResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'page': value['page'],
-        'pageSize': value['pageSize'],
-        'totalCount': value['totalCount'],
-        'data': value['data'] == null ? undefined : ((value['data'] as Array<any>).map(UserFileDTOToJSON)),
+        'page': value.page,
+        'pageSize': value.pageSize,
+        'totalCount': value.totalCount,
+        'data': value.data === undefined ? undefined : (value.data === null ? null : (value.data as Array<any>).map(UserFileDTOToJSON)),
     };
 }
 

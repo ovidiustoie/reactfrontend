@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { UserRoleEnum } from './UserRoleEnum';
 import {
     UserRoleEnumFromJSON,
@@ -31,19 +31,19 @@ export interface UserAddDTO {
      * @type {string}
      * @memberof UserAddDTO
      */
-    name?: string;
+    name?: string | null;
     /**
      * 
      * @type {string}
      * @memberof UserAddDTO
      */
-    email?: string;
+    email?: string | null;
     /**
      * 
      * @type {string}
      * @memberof UserAddDTO
      */
-    password?: string;
+    password?: string | null;
     /**
      * 
      * @type {UserRoleEnum}
@@ -56,7 +56,9 @@ export interface UserAddDTO {
  * Check if a given object implements the UserAddDTO interface.
  */
 export function instanceOfUserAddDTO(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function UserAddDTOFromJSON(json: any): UserAddDTO {
@@ -64,28 +66,31 @@ export function UserAddDTOFromJSON(json: any): UserAddDTO {
 }
 
 export function UserAddDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserAddDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'name': json['name'] == null ? undefined : json['name'],
-        'email': json['email'] == null ? undefined : json['email'],
-        'password': json['password'] == null ? undefined : json['password'],
-        'role': json['role'] == null ? undefined : UserRoleEnumFromJSON(json['role']),
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'email': !exists(json, 'email') ? undefined : json['email'],
+        'password': !exists(json, 'password') ? undefined : json['password'],
+        'role': !exists(json, 'role') ? undefined : UserRoleEnumFromJSON(json['role']),
     };
 }
 
 export function UserAddDTOToJSON(value?: UserAddDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'name': value['name'],
-        'email': value['email'],
-        'password': value['password'],
-        'role': UserRoleEnumToJSON(value['role']),
+        'name': value.name,
+        'email': value.email,
+        'password': value.password,
+        'role': UserRoleEnumToJSON(value.role),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -50,7 +50,9 @@ export interface LoginResponseDTORequestResponse {
  * Check if a given object implements the LoginResponseDTORequestResponse interface.
  */
 export function instanceOfLoginResponseDTORequestResponse(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function LoginResponseDTORequestResponseFromJSON(json: any): LoginResponseDTORequestResponse {
@@ -58,24 +60,27 @@ export function LoginResponseDTORequestResponseFromJSON(json: any): LoginRespons
 }
 
 export function LoginResponseDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): LoginResponseDTORequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'response': json['response'] == null ? undefined : LoginResponseDTOFromJSON(json['response']),
-        'errorMessage': json['errorMessage'] == null ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': !exists(json, 'response') ? undefined : LoginResponseDTOFromJSON(json['response']),
+        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
 export function LoginResponseDTORequestResponseToJSON(value?: LoginResponseDTORequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': LoginResponseDTOToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': LoginResponseDTOToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 

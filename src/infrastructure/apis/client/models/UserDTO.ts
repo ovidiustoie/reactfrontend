@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { UserRoleEnum } from './UserRoleEnum';
 import {
     UserRoleEnumFromJSON,
@@ -37,13 +37,13 @@ export interface UserDTO {
      * @type {string}
      * @memberof UserDTO
      */
-    name?: string;
+    name?: string | null;
     /**
      * 
      * @type {string}
      * @memberof UserDTO
      */
-    email?: string;
+    email?: string | null;
     /**
      * 
      * @type {UserRoleEnum}
@@ -56,7 +56,9 @@ export interface UserDTO {
  * Check if a given object implements the UserDTO interface.
  */
 export function instanceOfUserDTO(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function UserDTOFromJSON(json: any): UserDTO {
@@ -64,28 +66,31 @@ export function UserDTOFromJSON(json: any): UserDTO {
 }
 
 export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserDTO {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
-        'name': json['name'] == null ? undefined : json['name'],
-        'email': json['email'] == null ? undefined : json['email'],
-        'role': json['role'] == null ? undefined : UserRoleEnumFromJSON(json['role']),
+        'id': !exists(json, 'id') ? undefined : json['id'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'email': !exists(json, 'email') ? undefined : json['email'],
+        'role': !exists(json, 'role') ? undefined : UserRoleEnumFromJSON(json['role']),
     };
 }
 
 export function UserDTOToJSON(value?: UserDTO | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'name': value['name'],
-        'email': value['email'],
-        'role': UserRoleEnumToJSON(value['role']),
+        'id': value.id,
+        'name': value.name,
+        'email': value.email,
+        'role': UserRoleEnumToJSON(value.role),
     };
 }
 

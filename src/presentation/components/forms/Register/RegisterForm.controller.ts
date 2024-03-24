@@ -1,11 +1,11 @@
-import { LoginFormController, LoginFormModel } from "./LoginForm.types";
+import { RegisterUserFormController, RegisterUserFormModel } from "./RegisterUserForm.types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useIntl } from "react-intl";
 import * as yup from "yup";
 import { isUndefined } from "lodash";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useLoginApi } from "@infrastructure/apis/api-management";
+import { useUserApi } from "@infrastructure/apis/api-management";
 import { useCallback } from "react";
 import { useAppRouter } from "@infrastructure/hooks/useAppRouter";
 import { useDispatch } from "react-redux";
@@ -18,8 +18,11 @@ import { toast } from "react-toastify";
  */
 const getDefaultValues = (initialData?: { email: string }) => {
     const defaultValues = {
+        name: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: "",
+        
     };
 
     if (!isUndefined(initialData)) {
@@ -35,11 +38,20 @@ const getDefaultValues = (initialData?: { email: string }) => {
 /**
  * Create a hook to get the validation schema.
  */
-const useInitLoginForm = () => {
+const useInitRegisterUserForm = () => {
     const { formatMessage } = useIntl();
     const defaultValues = getDefaultValues();
 
     const schema = yup.object().shape({ // Use yup to build the validation schema of the form.
+        name: yup.string() // This field should be a string.
+        .required(formatMessage( // Use formatMessage to get the translated error message.
+            { id: "globals.validations.requiredField" },
+            {
+                fieldName: formatMessage({ // Format the message with other translated strings.
+                    id: "globals.name",
+                }),
+            })) // The field is required and needs a error message when it is empty.
+        .default(defaultValues.name), // Add a default value for the field.
         email: yup.string() // This field should be a string.
             .required(formatMessage( // Use formatMessage to get the translated error message.
                 { id: "globals.validations.requiredField" },
@@ -59,6 +71,15 @@ const useInitLoginForm = () => {
                     }),
                 }))
             .default(defaultValues.password),
+        confirmPassword: yup.string()
+            .required(formatMessage(
+                { id: "globals.validations.requiredField" },
+                {
+                    fieldName: formatMessage({
+                        id: "globals.password",
+                    }),
+                }))
+            .default(defaultValues.confirmPassword),
     });
 
     const resolver = yupResolver(schema); // Get the resolver.
@@ -69,29 +90,26 @@ const useInitLoginForm = () => {
 /**
  * Create a controller hook for the form and return any data that is necessary for the form.
  */
-export const useLoginFormController = (): LoginFormController => {
+export const useRegisterUserFormController = (): RegisterUserFormController => {
     const { formatMessage } = useIntl();
-    const { defaultValues, resolver } = useInitLoginForm();
+    const { defaultValues, resolver } = useInitRegisterUserForm();
     const { redirectToHome } = useAppRouter();
-    const { loginMutation: { mutation, key: mutationKey } } = useLoginApi();
-    const { mutateAsync: login, status } = useMutation({
-        mutationKey: [mutationKey],
+    const {  registerUser: { mutation, key: mutationKey } } = useUserApi();
+    const { mutateAsync: registerUser, status } = useMutation({
+        mutationKey: [mutationKey], 
         mutationFn: mutation
-    })
+    });
     const queryClient = useQueryClient();
-    const dispatch = useDispatch();
-    const submit = useCallback((data: LoginFormModel) => // Create a submit callback to send the form data to the backend.
-            login(data).then((result) => {
-            dispatch(setToken(result.response?.token ?? ''));
-            toast(formatMessage({ id: "notifications.messages.authenticationSuccess" }));
+    const submit = useCallback((data: RegisterUserFormModel) => // Create a submit callback to send the form data to the backend.
+        registerUser(data).then((result) => {
             redirectToHome();
-        }), [login, queryClient, redirectToHome, dispatch]);
+        }), [registerUser, queryClient, redirectToHome]);
 
     const {
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm<LoginFormModel>({ // Use the useForm hook to get callbacks and variables to work with the form.
+    } = useForm<RegisterUserFormModel>({ // Use the useForm hook to get callbacks and variables to work with the form.
         defaultValues, // Initialize the form with the default values.
         resolver // Add the validation resolver.
     });

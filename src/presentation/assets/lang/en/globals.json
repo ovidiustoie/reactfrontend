@@ -21,5 +21,7 @@
     "globals.file": "File",
     "globals.placeholders.textInput": "Please enter {fieldName}",
     "globals.placeholders.selectInput": "Please select the {fieldName}",
-    "globals.validations.requiredField": "{fieldName} is a required field!"
+    "globals.validations.requiredField": "{fieldName} is a required field!",
+    "globals.registerUser": "Create account",
+    "globals.confirmPassword": "Confirm"
 }

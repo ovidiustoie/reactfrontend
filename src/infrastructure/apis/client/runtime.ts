@@ -12,8 +12,10 @@
  * Do not edit the class manually.
  */
 
+
+// export const BASE_PATH = "http://localhost".replace(/\/+$/, "");
 export const BASE_PATH = import.meta.env.VITE_APP_API_BASE_URL.replace(/\/+$/, "");
-//export const BASE_PATH = "http://localhost".replace(/\/+$/, "");
+
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
@@ -308,6 +310,11 @@ export interface RequestOpts {
     headers: HTTPHeaders;
     query?: HTTPQuery;
     body?: HTTPBody;
+}
+
+export function exists(json: any, key: string) {
+    const value = json[key];
+    return value !== null && value !== undefined;
 }
 
 export function querystring(params: HTTPQuery, prefix: string = ''): string {

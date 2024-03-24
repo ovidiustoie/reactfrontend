@@ -1,5 +1,5 @@
 import { WebsiteLayout } from "presentation/layouts/WebsiteLayout";
-import { Typography } from "@mui/material";
+import { Checkbox, Typography } from "@mui/material";
 import { Fragment, memo } from "react";
 import { useIntl } from "react-intl";
 import { Box } from "@mui/system";
@@ -8,7 +8,7 @@ import { ContentCard } from "@presentation/components/ui/ContentCard";
 
 export const HomePage = memo(() => {
   const { formatMessage } = useIntl();
-
+  
   return <Fragment>
       <Seo title="MobyLab Web App | Home" />
       <WebsiteLayout>
@@ -23,7 +23,8 @@ export const HomePage = memo(() => {
               In pellentesque massa placerat duis. Facilisis gravida neque convallis a cras semper auctor neque. Nisi lacus sed viverra tellus. Integer vitae justo eget magna fermentum iaculis eu non. Dictum sit amet justo donec enim diam vulputate ut. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tortor posuere ac ut consequat semper viverra nam libero justo. Dictum at tempor commodo ullamcorper a. Sit amet commodo nulla facilisi nullam vehicula ipsum a arcu. Luctus venenatis lectus magna fringilla. Posuere sollicitudin aliquam ultrices sagittis orci. Tortor posuere ac ut consequat semper viverra nam libero. Massa ultricies mi quis hendrerit dolor magna. Ac tincidunt vitae semper quis lectus nulla. Pretium fusce id velit ut tortor pretium viverra. Enim ut tellus elementum sagittis. Viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est. Sed turpis tincidunt id aliquet risus. In vitae turpis massa sed. Sit amet risus nullam eget felis.
 
               Aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat. Non curabitur gravida arcu ac tortor dignissim convallis. Ac placerat vestibulum lectus mauris ultrices eros. Ullamcorper sit amet risus nullam eget felis. Quam lacus suspendisse faucibus interdum posuere. Viverra orci sagittis eu volutpat odio facilisis mauris sit. Sit amet nisl suscipit adipiscing bibendum. Nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus. Est velit egestas dui id ornare arcu. Gravida cum sociis natoque penatibus et magnis. Massa tincidunt dui ut ornare lectus sit amet est. Nec nam aliquam sem et tortor. Suspendisse ultrices gravida dictum fusce. Ac turpis egestas sed tempus urna et. Scelerisque in dictum non consectetur a erat. Curabitur vitae nunc sed velit. Sit amet commodo nulla facilisi nullam vehicula. Blandit volutpat maecenas volutpat blandit aliquam. Eu tincidunt tortor aliquam nulla facilisi cras fermentum odio eu.
-
+              <b>aaaa</b>
+              <Checkbox  defaultChecked />
             </Typography>
           </ContentCard>
         </Box>

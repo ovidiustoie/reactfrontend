@@ -15,5 +15,6 @@ export * from './UserDTORequestResponse';
 export * from './UserFileDTO';
 export * from './UserFileDTOPagedResponse';
 export * from './UserFileDTOPagedResponseRequestResponse';
+export * from './UserRegisterDTO';
 export * from './UserRoleEnum';
 export * from './UserUpdateDTO';

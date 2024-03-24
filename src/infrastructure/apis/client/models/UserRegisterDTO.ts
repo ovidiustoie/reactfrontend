@@ -16,55 +16,62 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface UserUpdateDTO
+ * @interface UserRegisterDTO
  */
-export interface UserUpdateDTO {
+export interface UserRegisterDTO {
     /**
      * 
      * @type {string}
-     * @memberof UserUpdateDTO
-     */
-    id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserUpdateDTO
+     * @memberof UserRegisterDTO
      */
     name?: string | null;
     /**
      * 
      * @type {string}
-     * @memberof UserUpdateDTO
+     * @memberof UserRegisterDTO
+     */
+    email?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserRegisterDTO
      */
     password?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserRegisterDTO
+     */
+    confirmPassword?: string | null;
 }
 
 /**
- * Check if a given object implements the UserUpdateDTO interface.
+ * Check if a given object implements the UserRegisterDTO interface.
  */
-export function instanceOfUserUpdateDTO(value: object): boolean {
+export function instanceOfUserRegisterDTO(value: object): boolean {
     let isInstance = true;
 
     return isInstance;
 }
 
-export function UserUpdateDTOFromJSON(json: any): UserUpdateDTO {
-    return UserUpdateDTOFromJSONTyped(json, false);
+export function UserRegisterDTOFromJSON(json: any): UserRegisterDTO {
+    return UserRegisterDTOFromJSONTyped(json, false);
 }
 
-export function UserUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserUpdateDTO {
+export function UserRegisterDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserRegisterDTO {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
         'name': !exists(json, 'name') ? undefined : json['name'],
+        'email': !exists(json, 'email') ? undefined : json['email'],
         'password': !exists(json, 'password') ? undefined : json['password'],
+        'confirmPassword': !exists(json, 'confirmPassword') ? undefined : json['confirmPassword'],
     };
 }
 
-export function UserUpdateDTOToJSON(value?: UserUpdateDTO | null): any {
+export function UserRegisterDTOToJSON(value?: UserRegisterDTO | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -73,9 +80,10 @@ export function UserUpdateDTOToJSON(value?: UserUpdateDTO | null): any {
     }
     return {
         
-        'id': value.id,
         'name': value.name,
+        'email': value.email,
         'password': value.password,
+        'confirmPassword': value.confirmPassword,
     };
 }
 

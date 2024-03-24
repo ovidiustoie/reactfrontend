@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -50,7 +50,9 @@ export interface UserFileDTOPagedResponseRequestResponse {
  * Check if a given object implements the UserFileDTOPagedResponseRequestResponse interface.
  */
 export function instanceOfUserFileDTOPagedResponseRequestResponse(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function UserFileDTOPagedResponseRequestResponseFromJSON(json: any): UserFileDTOPagedResponseRequestResponse {
@@ -58,24 +60,27 @@ export function UserFileDTOPagedResponseRequestResponseFromJSON(json: any): User
 }
 
 export function UserFileDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserFileDTOPagedResponseRequestResponse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'response': json['response'] == null ? undefined : UserFileDTOPagedResponseFromJSON(json['response']),
-        'errorMessage': json['errorMessage'] == null ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': !exists(json, 'response') ? undefined : UserFileDTOPagedResponseFromJSON(json['response']),
+        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
 export function UserFileDTOPagedResponseRequestResponseToJSON(value?: UserFileDTOPagedResponseRequestResponse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'response': UserFileDTOPagedResponseToJSON(value['response']),
-        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
+        'response': UserFileDTOPagedResponseToJSON(value.response),
+        'errorMessage': ErrorMessageToJSON(value.errorMessage),
     };
 }
 
