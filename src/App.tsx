@@ -2,6 +2,7 @@ import { UserRoleEnum } from "@infrastructure/apis/client";
 import { useOwnUserHasRole } from "@infrastructure/hooks/useOwnUser";
 import { AppIntlProvider } from "@presentation/components/ui/AppIntlProvider";
 import { ToastNotifier } from "@presentation/components/ui/ToastNotifier";
+import { AuthorsPage } from "@presentation/pages/AuthorsPage";
 import { HomePage } from "@presentation/pages/HomePage";
 import { LoginPage } from "@presentation/pages/LoginPage";
 import { RegisterUserPage } from "@presentation/pages/RegisterPage";
@@ -23,6 +24,7 @@ export function App() {
         <Route path={AppRoute.RegisterUser} element={<RegisterUserPage />} />
         {isAdmin && <Route path={AppRoute.Users} element={<UsersPage />} />} {/* If the user doesn't have the right role this route shouldn't be used. */}
         {isAdmin && <Route path={AppRoute.UserFiles} element={<UserFilesPage />} />}
+        {<Route path={AppRoute.Authors} element={<AuthorsPage />} />}
       </Routes>
     </AppIntlProvider>
 }

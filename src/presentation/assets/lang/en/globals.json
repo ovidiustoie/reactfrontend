@@ -8,6 +8,7 @@
     "globals.refresh": "Refresh",
     "globals.loadingFailed": "Loading failed",
     "globals.loading": "Loading",
+    "globals.authors": "Authors",
     "globals.users": "Users",
     "globals.files": "Files",
     "globals.name": "Name",

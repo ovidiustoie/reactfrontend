@@ -9,6 +9,7 @@
     "globals.loadingFailed": "Incarcarea a esaut",
     "globals.loading": "Se incarca",
     "globals.users": "Utilizatori",
+    "globals.authors": "Autori",
     "globals.files": "Fisiere",
     "globals.name": "Nume",
     "globals.role": "Rol",

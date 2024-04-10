@@ -71,6 +71,13 @@ export const Navbar = () => {
                   </Link>
                 </Button>
               </Grid>
+              <Grid container item direction="column" xs={1}>
+                <Button color="inherit">
+                  <Link style={{ color: 'white' }} to={AppRoute.Authors}>
+                    {formatMessage({ id: "globals.authors" })}
+                  </Link>
+                </Button>
+              </Grid>
             </Grid>}
           </Grid>
           <Grid container item direction="column" xs={1}>

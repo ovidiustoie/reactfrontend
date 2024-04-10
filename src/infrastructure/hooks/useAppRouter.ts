@@ -29,10 +29,18 @@ export const useAppRouter = () => {
     [navigate]
   );
 
+  const redirectToAuthors = useCallback(
+    () =>
+      navigate({
+        pathname: AppRoute.Authors
+      }),
+    [navigate]
+  );
   return {
     redirectToHome,
     redirectToUsers,
     redirectToUsersFiles,
+    redirectToAuthors,
     navigate
   };
 };
