@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { UserDTO } from './UserDTO';
 import {
     UserDTOFromJSON,
@@ -31,7 +31,7 @@ export interface LoginResponseDTO {
      * @type {string}
      * @memberof LoginResponseDTO
      */
-    token?: string | null;
+    token?: string;
     /**
      * 
      * @type {UserDTO}
@@ -44,9 +44,7 @@ export interface LoginResponseDTO {
  * Check if a given object implements the LoginResponseDTO interface.
  */
 export function instanceOfLoginResponseDTO(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function LoginResponseDTOFromJSON(json: any): LoginResponseDTO {
@@ -54,27 +52,24 @@ export function LoginResponseDTOFromJSON(json: any): LoginResponseDTO {
 }
 
 export function LoginResponseDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): LoginResponseDTO {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'token': !exists(json, 'token') ? undefined : json['token'],
-        'user': !exists(json, 'user') ? undefined : UserDTOFromJSON(json['user']),
+        'token': json['token'] == null ? undefined : json['token'],
+        'user': json['user'] == null ? undefined : UserDTOFromJSON(json['user']),
     };
 }
 
 export function LoginResponseDTOToJSON(value?: LoginResponseDTO | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'token': value.token,
-        'user': UserDTOToJSON(value.user),
+        'token': value['token'],
+        'user': UserDTOToJSON(value['user']),
     };
 }
 

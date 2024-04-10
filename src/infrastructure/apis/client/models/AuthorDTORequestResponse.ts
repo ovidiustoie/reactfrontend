@@ -13,6 +13,12 @@
  */
 
 import { mapValues } from '../runtime';
+import type { AuthorDTO } from './AuthorDTO';
+import {
+    AuthorDTOFromJSON,
+    AuthorDTOFromJSONTyped,
+    AuthorDTOToJSON,
+} from './AuthorDTO';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -23,51 +29,52 @@ import {
 /**
  * 
  * @export
- * @interface RequestResponse
+ * @interface AuthorDTORequestResponse
  */
-export interface RequestResponse {
+export interface AuthorDTORequestResponse {
     /**
      * 
-     * @type {string}
-     * @memberof RequestResponse
+     * @type {AuthorDTO}
+     * @memberof AuthorDTORequestResponse
      */
-    readonly response?: string;
+    response?: AuthorDTO;
     /**
      * 
      * @type {ErrorMessage}
-     * @memberof RequestResponse
+     * @memberof AuthorDTORequestResponse
      */
     errorMessage?: ErrorMessage;
 }
 
 /**
- * Check if a given object implements the RequestResponse interface.
+ * Check if a given object implements the AuthorDTORequestResponse interface.
  */
-export function instanceOfRequestResponse(value: object): boolean {
+export function instanceOfAuthorDTORequestResponse(value: object): boolean {
     return true;
 }
 
-export function RequestResponseFromJSON(json: any): RequestResponse {
-    return RequestResponseFromJSONTyped(json, false);
+export function AuthorDTORequestResponseFromJSON(json: any): AuthorDTORequestResponse {
+    return AuthorDTORequestResponseFromJSONTyped(json, false);
 }
 
-export function RequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): RequestResponse {
+export function AuthorDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): AuthorDTORequestResponse {
     if (json == null) {
         return json;
     }
     return {
         
-        'response': json['response'] == null ? undefined : json['response'],
+        'response': json['response'] == null ? undefined : AuthorDTOFromJSON(json['response']),
         'errorMessage': json['errorMessage'] == null ? undefined : ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
-export function RequestResponseToJSON(value?: RequestResponse | null): any {
+export function AuthorDTORequestResponseToJSON(value?: AuthorDTORequestResponse | null): any {
     if (value == null) {
         return value;
     }
     return {
         
+        'response': AuthorDTOToJSON(value['response']),
         'errorMessage': ErrorMessageToJSON(value['errorMessage']),
     };
 }

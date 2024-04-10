@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -24,34 +24,32 @@ export interface UserRegisterDTO {
      * @type {string}
      * @memberof UserRegisterDTO
      */
-    name?: string | null;
+    name?: string;
     /**
      * 
      * @type {string}
      * @memberof UserRegisterDTO
      */
-    email?: string | null;
+    email?: string;
     /**
      * 
      * @type {string}
      * @memberof UserRegisterDTO
      */
-    password?: string | null;
+    password?: string;
     /**
      * 
      * @type {string}
      * @memberof UserRegisterDTO
      */
-    confirmPassword?: string | null;
+    confirmPassword?: string;
 }
 
 /**
  * Check if a given object implements the UserRegisterDTO interface.
  */
 export function instanceOfUserRegisterDTO(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function UserRegisterDTOFromJSON(json: any): UserRegisterDTO {
@@ -59,31 +57,28 @@ export function UserRegisterDTOFromJSON(json: any): UserRegisterDTO {
 }
 
 export function UserRegisterDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserRegisterDTO {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'password': !exists(json, 'password') ? undefined : json['password'],
-        'confirmPassword': !exists(json, 'confirmPassword') ? undefined : json['confirmPassword'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'password': json['password'] == null ? undefined : json['password'],
+        'confirmPassword': json['confirmPassword'] == null ? undefined : json['confirmPassword'],
     };
 }
 
 export function UserRegisterDTOToJSON(value?: UserRegisterDTO | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'name': value.name,
-        'email': value.email,
-        'password': value.password,
-        'confirmPassword': value.confirmPassword,
+        'name': value['name'],
+        'email': value['email'],
+        'password': value['password'],
+        'confirmPassword': value['confirmPassword'],
     };
 }
 

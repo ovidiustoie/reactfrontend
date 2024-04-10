@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -30,22 +30,20 @@ export interface UserUpdateDTO {
      * @type {string}
      * @memberof UserUpdateDTO
      */
-    name?: string | null;
+    name?: string;
     /**
      * 
      * @type {string}
      * @memberof UserUpdateDTO
      */
-    password?: string | null;
+    password?: string;
 }
 
 /**
  * Check if a given object implements the UserUpdateDTO interface.
  */
 export function instanceOfUserUpdateDTO(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function UserUpdateDTOFromJSON(json: any): UserUpdateDTO {
@@ -53,29 +51,26 @@ export function UserUpdateDTOFromJSON(json: any): UserUpdateDTO {
 }
 
 export function UserUpdateDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserUpdateDTO {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'password': !exists(json, 'password') ? undefined : json['password'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'password': json['password'] == null ? undefined : json['password'],
     };
 }
 
 export function UserUpdateDTOToJSON(value?: UserUpdateDTO | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'name': value.name,
-        'password': value.password,
+        'id': value['id'],
+        'name': value['name'],
+        'password': value['password'],
     };
 }
 

@@ -1,9 +1,16 @@
 .openapi-generator-ignore
+apis/AuthorApi.ts
 apis/AuthorizationApi.ts
 apis/UserApi.ts
 apis/UserFileApi.ts
 apis/index.ts
 index.ts
+models/AuthorAddDTO.ts
+models/AuthorDTO.ts
+models/AuthorDTOPagedResponse.ts
+models/AuthorDTOPagedResponseRequestResponse.ts
+models/AuthorDTORequestResponse.ts
+models/AuthorUpdateDTO.ts
 models/ErrorCodes.ts
 models/ErrorMessage.ts
 models/HttpStatusCode.ts

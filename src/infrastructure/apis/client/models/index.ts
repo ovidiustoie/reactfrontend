@@ -1,5 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './AuthorAddDTO';
+export * from './AuthorDTO';
+export * from './AuthorDTOPagedResponse';
+export * from './AuthorDTOPagedResponseRequestResponse';
+export * from './AuthorDTORequestResponse';
+export * from './AuthorUpdateDTO';
 export * from './ErrorCodes';
 export * from './ErrorMessage';
 export * from './HttpStatusCode';

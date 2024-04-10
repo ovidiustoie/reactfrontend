@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -50,9 +50,7 @@ export interface UserFileDTOPagedResponseRequestResponse {
  * Check if a given object implements the UserFileDTOPagedResponseRequestResponse interface.
  */
 export function instanceOfUserFileDTOPagedResponseRequestResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function UserFileDTOPagedResponseRequestResponseFromJSON(json: any): UserFileDTOPagedResponseRequestResponse {
@@ -60,27 +58,24 @@ export function UserFileDTOPagedResponseRequestResponseFromJSON(json: any): User
 }
 
 export function UserFileDTOPagedResponseRequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserFileDTOPagedResponseRequestResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'response': !exists(json, 'response') ? undefined : UserFileDTOPagedResponseFromJSON(json['response']),
-        'errorMessage': !exists(json, 'errorMessage') ? undefined : ErrorMessageFromJSON(json['errorMessage']),
+        'response': json['response'] == null ? undefined : UserFileDTOPagedResponseFromJSON(json['response']),
+        'errorMessage': json['errorMessage'] == null ? undefined : ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
 export function UserFileDTOPagedResponseRequestResponseToJSON(value?: UserFileDTOPagedResponseRequestResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'response': UserFileDTOPagedResponseToJSON(value.response),
-        'errorMessage': ErrorMessageToJSON(value.errorMessage),
+        'response': UserFileDTOPagedResponseToJSON(value['response']),
+        'errorMessage': ErrorMessageToJSON(value['errorMessage']),
     };
 }
 

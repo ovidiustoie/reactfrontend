@@ -52,7 +52,7 @@ export class AuthorizationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: LoginDTOToJSON(requestParameters.loginDTO),
+            body: LoginDTOToJSON(requestParameters['loginDTO']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LoginResponseDTORequestResponseFromJSON(jsonValue));

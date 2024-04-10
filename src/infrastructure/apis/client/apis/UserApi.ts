@@ -86,7 +86,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserAddDTOToJSON(requestParameters.userAddDTO),
+            body: UserAddDTOToJSON(requestParameters['userAddDTO']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -102,8 +102,11 @@ export class UserApi extends runtime.BaseAPI {
     /**
      */
     async apiUserDeleteIdDeleteRaw(requestParameters: ApiUserDeleteIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiUserDeleteIdDelete.');
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling apiUserDeleteIdDelete().'
+            );
         }
 
         const queryParameters: any = {};
@@ -115,7 +118,7 @@ export class UserApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/User/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/User/Delete/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -134,8 +137,11 @@ export class UserApi extends runtime.BaseAPI {
     /**
      */
     async apiUserGetByIdIdGetRaw(requestParameters: ApiUserGetByIdIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDTORequestResponse>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiUserGetByIdIdGet.');
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling apiUserGetByIdIdGet().'
+            );
         }
 
         const queryParameters: any = {};
@@ -147,7 +153,7 @@ export class UserApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/User/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/User/GetById/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -168,16 +174,16 @@ export class UserApi extends runtime.BaseAPI {
     async apiUserGetPageGetRaw(requestParameters: ApiUserGetPageGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDTOPagedResponseRequestResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.search !== undefined) {
-            queryParameters['Search'] = requestParameters.search;
+        if (requestParameters['search'] != null) {
+            queryParameters['Search'] = requestParameters['search'];
         }
 
-        if (requestParameters.page !== undefined) {
-            queryParameters['Page'] = requestParameters.page;
+        if (requestParameters['page'] != null) {
+            queryParameters['Page'] = requestParameters['page'];
         }
 
-        if (requestParameters.pageSize !== undefined) {
-            queryParameters['PageSize'] = requestParameters.pageSize;
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['PageSize'] = requestParameters['pageSize'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -221,7 +227,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserRegisterDTOToJSON(requestParameters.userRegisterDTO),
+            body: UserRegisterDTOToJSON(requestParameters['userRegisterDTO']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
@@ -252,7 +258,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UserUpdateDTOToJSON(requestParameters.userUpdateDTO),
+            body: UserUpdateDTOToJSON(requestParameters['userUpdateDTO']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { UserDTO } from './UserDTO';
 import {
     UserDTOFromJSON,
@@ -37,13 +37,13 @@ export interface UserFileDTO {
      * @type {string}
      * @memberof UserFileDTO
      */
-    name?: string | null;
+    name?: string;
     /**
      * 
      * @type {string}
      * @memberof UserFileDTO
      */
-    description?: string | null;
+    description?: string;
     /**
      * 
      * @type {UserDTO}
@@ -68,9 +68,7 @@ export interface UserFileDTO {
  * Check if a given object implements the UserFileDTO interface.
  */
 export function instanceOfUserFileDTO(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function UserFileDTOFromJSON(json: any): UserFileDTO {
@@ -78,35 +76,32 @@ export function UserFileDTOFromJSON(json: any): UserFileDTO {
 }
 
 export function UserFileDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserFileDTO {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
-        'user': !exists(json, 'user') ? undefined : UserDTOFromJSON(json['user']),
-        'createdAt': !exists(json, 'createdAt') ? undefined : (new Date(json['createdAt'])),
-        'updatedAt': !exists(json, 'updatedAt') ? undefined : (new Date(json['updatedAt'])),
+        'id': json['id'] == null ? undefined : json['id'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'description': json['description'] == null ? undefined : json['description'],
+        'user': json['user'] == null ? undefined : UserDTOFromJSON(json['user']),
+        'createdAt': json['createdAt'] == null ? undefined : (new Date(json['createdAt'])),
+        'updatedAt': json['updatedAt'] == null ? undefined : (new Date(json['updatedAt'])),
     };
 }
 
 export function UserFileDTOToJSON(value?: UserFileDTO | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'name': value.name,
-        'description': value.description,
-        'user': UserDTOToJSON(value.user),
-        'createdAt': value.createdAt === undefined ? undefined : (value.createdAt.toISOString()),
-        'updatedAt': value.updatedAt === undefined ? undefined : (value.updatedAt.toISOString()),
+        'id': value['id'],
+        'name': value['name'],
+        'description': value['description'],
+        'user': UserDTOToJSON(value['user']),
+        'createdAt': value['createdAt'] == null ? undefined : ((value['createdAt']).toISOString()),
+        'updatedAt': value['updatedAt'] == null ? undefined : ((value['updatedAt']).toISOString()),
     };
 }
 

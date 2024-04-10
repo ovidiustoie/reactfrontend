@@ -13,57 +13,57 @@
  */
 
 import { mapValues } from '../runtime';
-import type { UserDTO } from './UserDTO';
+import type { AuthorDTO } from './AuthorDTO';
 import {
-    UserDTOFromJSON,
-    UserDTOFromJSONTyped,
-    UserDTOToJSON,
-} from './UserDTO';
+    AuthorDTOFromJSON,
+    AuthorDTOFromJSONTyped,
+    AuthorDTOToJSON,
+} from './AuthorDTO';
 
 /**
  * 
  * @export
- * @interface UserDTOPagedResponse
+ * @interface AuthorDTOPagedResponse
  */
-export interface UserDTOPagedResponse {
+export interface AuthorDTOPagedResponse {
     /**
      * 
      * @type {number}
-     * @memberof UserDTOPagedResponse
+     * @memberof AuthorDTOPagedResponse
      */
     page?: number;
     /**
      * 
      * @type {number}
-     * @memberof UserDTOPagedResponse
+     * @memberof AuthorDTOPagedResponse
      */
     pageSize?: number;
     /**
      * 
      * @type {number}
-     * @memberof UserDTOPagedResponse
+     * @memberof AuthorDTOPagedResponse
      */
     totalCount?: number;
     /**
      * 
-     * @type {Array<UserDTO>}
-     * @memberof UserDTOPagedResponse
+     * @type {Array<AuthorDTO>}
+     * @memberof AuthorDTOPagedResponse
      */
-    data?: Array<UserDTO>;
+    data?: Array<AuthorDTO>;
 }
 
 /**
- * Check if a given object implements the UserDTOPagedResponse interface.
+ * Check if a given object implements the AuthorDTOPagedResponse interface.
  */
-export function instanceOfUserDTOPagedResponse(value: object): boolean {
+export function instanceOfAuthorDTOPagedResponse(value: object): boolean {
     return true;
 }
 
-export function UserDTOPagedResponseFromJSON(json: any): UserDTOPagedResponse {
-    return UserDTOPagedResponseFromJSONTyped(json, false);
+export function AuthorDTOPagedResponseFromJSON(json: any): AuthorDTOPagedResponse {
+    return AuthorDTOPagedResponseFromJSONTyped(json, false);
 }
 
-export function UserDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserDTOPagedResponse {
+export function AuthorDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): AuthorDTOPagedResponse {
     if (json == null) {
         return json;
     }
@@ -72,11 +72,11 @@ export function UserDTOPagedResponseFromJSONTyped(json: any, ignoreDiscriminator
         'page': json['page'] == null ? undefined : json['page'],
         'pageSize': json['pageSize'] == null ? undefined : json['pageSize'],
         'totalCount': json['totalCount'] == null ? undefined : json['totalCount'],
-        'data': json['data'] == null ? undefined : ((json['data'] as Array<any>).map(UserDTOFromJSON)),
+        'data': json['data'] == null ? undefined : ((json['data'] as Array<any>).map(AuthorDTOFromJSON)),
     };
 }
 
-export function UserDTOPagedResponseToJSON(value?: UserDTOPagedResponse | null): any {
+export function AuthorDTOPagedResponseToJSON(value?: AuthorDTOPagedResponse | null): any {
     if (value == null) {
         return value;
     }
@@ -85,7 +85,7 @@ export function UserDTOPagedResponseToJSON(value?: UserDTOPagedResponse | null):
         'page': value['page'],
         'pageSize': value['pageSize'],
         'totalCount': value['totalCount'],
-        'data': value['data'] == null ? undefined : ((value['data'] as Array<any>).map(UserDTOToJSON)),
+        'data': value['data'] == null ? undefined : ((value['data'] as Array<any>).map(AuthorDTOToJSON)),
     };
 }
 
