@@ -3,15 +3,15 @@ import { Fragment, memo } from "react";
 import { Box } from "@mui/system";
 import { Seo } from "@presentation/components/ui/Seo";
 import { ContentCard } from "@presentation/components/ui/ContentCard";
-import { UserTable } from "@presentation/components/ui/Tables/UserTable";
+import { AuthorTable } from "@presentation/components/ui/Tables/AuthorTable";
 
 export const AuthorsPage = memo(() => {
   return <Fragment>
     <Seo title="MobyLab Web App | Authors" />
     <WebsiteLayout>
-      <Box sx={{ padding: "0px 50px 00px 50px", justifyItems: "center" }}>
+    <Box sx={{ padding: "0px 50px 00px 50px", justifyItems: "center" }}>
         <ContentCard>
-          Authors
+          <AuthorTable />
         </ContentCard>
       </Box>
     </WebsiteLayout>

@@ -33,7 +33,7 @@ export const useUserApi = () => {
             key: getUserQueryKey,
             query: getUser
         },
-        addUser: { // Return the mutation object.
+        addAuthor: { // Return the mutation object.
             key: addUserMutationKey, // Add the key to identify the mutation.
             mutation: addUser // Add the mutation callback.
         },

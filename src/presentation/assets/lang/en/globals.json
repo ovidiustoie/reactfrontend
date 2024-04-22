@@ -24,5 +24,8 @@
     "globals.placeholders.selectInput": "Please select the {fieldName}",
     "globals.validations.requiredField": "{fieldName} is a required field!",
     "globals.registerUser": "Create account",
-    "globals.confirmPassword": "Confirm"
+    "globals.confirmPassword": "Confirm",
+    "globals.fullName": "Full Name",
+    "globals.lastName": "Last Name",
+    "globals.firstName": "First Name"
 }

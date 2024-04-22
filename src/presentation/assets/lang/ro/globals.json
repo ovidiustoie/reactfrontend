@@ -24,5 +24,8 @@
     "globals.placeholders.selectInput": "Va rugam sa selectati {fieldName}",
     "globals.validations.requiredField": "{fieldName} este camp obligatoriu!",
     "globals.registerUser": "Creare cont",
-    "globals.confirmPassword": "Confirmare"
+    "globals.confirmPassword": "Confirmare",
+    "globals.fullName": "Nume Complet",
+    "globals.lastName": "Nume",
+    "globals.firstName": "Prenume"
 }
