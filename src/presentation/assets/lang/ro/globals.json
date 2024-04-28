@@ -31,5 +31,9 @@
     "globals.bookTitle": "Carte",
     "globals.bookSummary": "Descriere",
     "globals.books": "Carti",
-    "globals.noAuthors": "Nici un autor"
+    "globals.noAuthors": "Nici un autor",
+    "globals.confirm": "Confirmare",
+    "globals.confirmRemove": "Esti sigur ca vrei sa stergi acest element ?",
+    "globals.confirmOK": "Da",
+    "globals.confirmCancel": "Abandonare"
 }

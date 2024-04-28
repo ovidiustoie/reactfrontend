@@ -31,5 +31,9 @@
     "globals.bookTitle": "Book's title",
     "globals.bookSummary": "Description",
     "globals.books": "Books",
-    "globals.noAuthors": "No Authors"
+    "globals.noAuthors": "No Authors",
+    "globals.confirm": "Confirmation",
+    "globals.confirmRemove": "Want to proceed with removing this item?",
+    "globals.confirmOK": "OK",
+    "globals.confirmCancel": "Cancel"
 }

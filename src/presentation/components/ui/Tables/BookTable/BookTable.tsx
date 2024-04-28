@@ -41,8 +41,13 @@ export const BookTable = () => {
     const rowValues = getRowValues(pagedData?.data, orderMap); // Get the row values.
     const confirm = useConfirm();
     const removeHandler = (id:  string) => {
-        confirm({ description: "This action is permanent!" }).then(() => remove(id || '')).catch(() => {});
-    }
+        confirm({ 
+            title: formatMessage({ id: "globals.confirm" }), 
+            description: formatMessage({ id: "globals.confirmRemove" }), 
+            confirmationText: formatMessage({ id: "globals.confirmOK" }), 
+            cancellationText: formatMessage({ id: "globals.confirmCancel" }), 
+        }).then(() => remove(id || '')).catch(() => {});
+    };
     return <DataLoadingContainer isError={isError} isLoading={isLoading} tryReload={tryReload}> {/* Wrap the table into the loading container because data will be fetched from the backend and is not immediately available.*/}
         <BookAddDialog />
         <Paper sx={{ width: '100%', mb: 2 }}>
