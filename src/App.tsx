@@ -12,13 +12,15 @@ import { UsersPage } from "@presentation/pages/UsersPage";
 import { BooksPage } from "@presentation/pages/BooksPage";
 import { Route, Routes } from "react-router-dom";
 import { AppRoute } from "routes";
+import { ConfirmProvider } from "material-ui-confirm"
 
 export function App() {
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
 
   return <AppIntlProvider> {/* AppIntlProvider provides the functions to search the text after the provides string ids. */}
-      <ToastNotifier />
-      {/* This adds the routes and route mappings on the various components. */}
+    <ToastNotifier />
+    {/* This adds the routes and route mappings on the various components. */}
+    <ConfirmProvider> {
       <Routes>
         <Route path={AppRoute.Index} element={<HomePage />} /> {/* Add a new route with a element as the page. */}
         <Route path={AppRoute.Login} element={<LoginPage />} />
@@ -28,5 +30,6 @@ export function App() {
         {<Route path={AppRoute.Authors} element={<AuthorsPage />} />}
         {<Route path={AppRoute.Books} element={<BooksPage />} />}
       </Routes>
-    </AppIntlProvider>
+    }</ConfirmProvider>
+  </AppIntlProvider>
 }

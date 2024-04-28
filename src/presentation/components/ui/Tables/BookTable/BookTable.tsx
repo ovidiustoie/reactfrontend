@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
 import { isUndefined } from "lodash";
+import { useConfirm } from "material-ui-confirm";
 import { IconButton, Paper, Table, TableBody, TableCell, TableFooter, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import { DataLoadingContainer } from "../../LoadingDisplay";
 import { useBookTableController } from "./BookTable.controller";
 import { BookDTO } from "@infrastructure/apis/client";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useAppSelector } from "@application/store";
 import { BookAddDialog } from "../../Dialogs/BookAddDialog/BookAddDialog";
 
 /**
@@ -33,17 +33,16 @@ const getRowValues = (entries: BookDTO[] | null | undefined, orderMap: { [key: s
             }
         });
 
-/**
- * Creates the user table.
- */
 export const BookTable = () => {
-    const { userId: ownUserId } = useAppSelector(x => x.profileReducer);
     const { formatMessage } = useIntl();
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
     const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, labelDisplay, remove } = useBookTableController(); // Use the controller hook.
     const rowValues = getRowValues(pagedData?.data, orderMap); // Get the row values.
-
+    const confirm = useConfirm();
+    const removeHandler = (id:  string) => {
+        confirm({ description: "This action is permanent!" }).then(() => remove(id || '')).catch(() => {});
+    }
     return <DataLoadingContainer isError={isError} isLoading={isLoading} tryReload={tryReload}> {/* Wrap the table into the loading container because data will be fetched from the backend and is not immediately available.*/}
         <BookAddDialog />
         <Paper sx={{ width: '100%', mb: 2 }}>
@@ -52,9 +51,9 @@ export const BookTable = () => {
                     <TableHead>
                         <TableRow>
                             {
-                                header.map(e => <TableCell key={`header_${String(e.key)}`}>{e.name}</TableCell>) // Add the table header.
+                                header.map(e => <TableCell key={`header_${String(e.key)}`}>{e.name}</TableCell>)
                             }
-                            <TableCell>{formatMessage({ id: "labels.actions" })}</TableCell> {/* Add additional header columns if needed. */}
+                            <TableCell>{formatMessage({ id: "labels.actions" })}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -62,7 +61,7 @@ export const BookTable = () => {
                             rowValues?.map(({ data, entry }, rowIndex) => <TableRow key={`row_${rowIndex + 1}`}>
                                 {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)} {/* Add the row values. */}
                                 <TableCell> {/* Add other cells like action buttons. */}
-                                    {entry.id !== ownUserId && <IconButton color="error" onClick={() => remove(entry.id || '')}>
+                                    {<IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
                                         <DeleteIcon color="error" fontSize='small' />
                                     </IconButton>}
                                 </TableCell>
