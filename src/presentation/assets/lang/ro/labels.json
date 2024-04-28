@@ -7,5 +7,7 @@
     "labels.actions": "Actiuni",
     "labels.addUser": "Adauga utilizator",
     "labels.addAuthor": "Adauga autor",
-    "labels.addUserFile": "Adauga fisier"
+    "labels.addUserFile": "Adauga fisier",
+    "labels.addBook": "Carte"
+    
 }

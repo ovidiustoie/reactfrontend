@@ -27,5 +27,9 @@
     "globals.confirmPassword": "Confirmare",
     "globals.fullName": "Nume Complet",
     "globals.lastName": "Nume",
-    "globals.firstName": "Prenume"
+    "globals.firstName": "Prenume",
+    "globals.bookTitle": "Carte",
+    "globals.bookSummary": "Descriere",
+    "globals.books": "Carti",
+    "globals.noAuthors": "Nici un autor"
 }

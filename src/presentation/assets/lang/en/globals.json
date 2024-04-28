@@ -27,5 +27,9 @@
     "globals.confirmPassword": "Confirm",
     "globals.fullName": "Full Name",
     "globals.lastName": "Last Name",
-    "globals.firstName": "First Name"
+    "globals.firstName": "First Name",
+    "globals.bookTitle": "Book's title",
+    "globals.bookSummary": "Description",
+    "globals.books": "Books",
+    "globals.noAuthors": "No Authors"
 }

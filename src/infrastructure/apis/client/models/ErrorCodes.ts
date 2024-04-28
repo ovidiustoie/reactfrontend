@@ -32,6 +32,10 @@ export const ErrorCodes = {
 export type ErrorCodes = typeof ErrorCodes[keyof typeof ErrorCodes];
 
 
+export function instanceOfErrorCodes(value: any): boolean {
+    return Object.values(ErrorCodes).includes(value);
+}
+
 export function ErrorCodesFromJSON(json: any): ErrorCodes {
     return ErrorCodesFromJSONTyped(json, false);
 }

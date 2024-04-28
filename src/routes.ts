@@ -8,4 +8,5 @@ export enum AppRoute {
     UserFiles = "/user-files",
     RegisterUser = "/register",
     Authors = "/authors",
+    Books = "/books",
 }

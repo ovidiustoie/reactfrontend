@@ -83,6 +83,10 @@ export const HttpStatusCode = {
 export type HttpStatusCode = typeof HttpStatusCode[keyof typeof HttpStatusCode];
 
 
+export function instanceOfHttpStatusCode(value: any): boolean {
+    return Object.values(HttpStatusCode).includes(value);
+}
+
 export function HttpStatusCodeFromJSON(json: any): HttpStatusCode {
     return HttpStatusCodeFromJSONTyped(json, false);
 }

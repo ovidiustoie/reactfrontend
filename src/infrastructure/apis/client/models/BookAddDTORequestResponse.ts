@@ -13,6 +13,12 @@
  */
 
 import { mapValues } from '../runtime';
+import type { BookAddDTO } from './BookAddDTO';
+import {
+    BookAddDTOFromJSON,
+    BookAddDTOFromJSONTyped,
+    BookAddDTOToJSON,
+} from './BookAddDTO';
 import type { ErrorMessage } from './ErrorMessage';
 import {
     ErrorMessageFromJSON,
@@ -23,51 +29,52 @@ import {
 /**
  * 
  * @export
- * @interface RequestResponse
+ * @interface BookAddDTORequestResponse
  */
-export interface RequestResponse {
+export interface BookAddDTORequestResponse {
     /**
      * 
-     * @type {string}
-     * @memberof RequestResponse
+     * @type {BookAddDTO}
+     * @memberof BookAddDTORequestResponse
      */
-    readonly response?: string;
+    response?: BookAddDTO;
     /**
      * 
      * @type {ErrorMessage}
-     * @memberof RequestResponse
+     * @memberof BookAddDTORequestResponse
      */
     errorMessage?: ErrorMessage;
 }
 
 /**
- * Check if a given object implements the RequestResponse interface.
+ * Check if a given object implements the BookAddDTORequestResponse interface.
  */
-export function instanceOfRequestResponse(value: object): boolean {
+export function instanceOfBookAddDTORequestResponse(value: object): boolean {
     return true;
 }
 
-export function RequestResponseFromJSON(json: any): RequestResponse {
-    return RequestResponseFromJSONTyped(json, false);
+export function BookAddDTORequestResponseFromJSON(json: any): BookAddDTORequestResponse {
+    return BookAddDTORequestResponseFromJSONTyped(json, false);
 }
 
-export function RequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): RequestResponse {
+export function BookAddDTORequestResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): BookAddDTORequestResponse {
     if (json == null) {
         return json;
     }
     return {
         
-        'response': json['response'] == null ? undefined : json['response'],
+        'response': json['response'] == null ? undefined : BookAddDTOFromJSON(json['response']),
         'errorMessage': json['errorMessage'] == null ? undefined : ErrorMessageFromJSON(json['errorMessage']),
     };
 }
 
-export function RequestResponseToJSON(value?: Omit<RequestResponse, 'response'> | null): any {
+export function BookAddDTORequestResponseToJSON(value?: BookAddDTORequestResponse | null): any {
     if (value == null) {
         return value;
     }
     return {
         
+        'response': BookAddDTOToJSON(value['response']),
         'errorMessage': ErrorMessageToJSON(value['errorMessage']),
     };
 }
