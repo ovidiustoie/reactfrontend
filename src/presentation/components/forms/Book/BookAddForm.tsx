@@ -59,7 +59,7 @@ export const BookAddForm = (props: { onSubmit?: () => void, id?:string }) => {
                                 <FormattedMessage id="globals.authors" />
                             </FormLabel> {/* Add a form label to indicate what the input means. */}
                             <AuthorsLookup
-                                value={actions.watch("authors")}
+                                value={actions.watch("authors", [])}
                                 fullWidth={true}
                                 noOptionsText={formatMessage({ id: "globals.noAuthors" })}
                                 placeholder={formatMessage(

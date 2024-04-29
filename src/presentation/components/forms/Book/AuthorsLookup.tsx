@@ -22,6 +22,9 @@ export const  AuthorsLookup = (props: {
     const noOptionsText = props.noOptionsText || '';
     const getAuthors = useAuthorApi().getAuthors; 
     const [currentValue, setCurrentValue] = React.useState<AuthorRefDTO[]>(props.value);
+    React.useEffect(() => {
+        setCurrentValue(props.value);
+    }, [props.value]);
     const [inputValue, setInputValue] = React.useState('');
     const [options, setOptions] = React.useState<readonly AuthorRefDTO[]>([]);
     const fetch = React.useMemo(
@@ -73,7 +76,7 @@ export const  AuthorsLookup = (props: {
         return () => {
             active = false;
         };
-    }, [currentValue, inputValue, fetch]);
+    }, [inputValue, fetch]);
 
     return (
         <Autocomplete
@@ -107,7 +110,7 @@ export const  AuthorsLookup = (props: {
                 props.onChange(newValue);
             }}
             onInputChange={(event, newInputValue) => {
-                setInputValue(newInputValue);
+                setInputValue(newInputValue || '');
             }}
             renderInput={(params) => (
                 <TextField {...params} placeholder={placeholder} variant="outlined"  />
