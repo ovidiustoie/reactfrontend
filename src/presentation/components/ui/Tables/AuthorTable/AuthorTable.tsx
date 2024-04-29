@@ -7,6 +7,7 @@ import { useAuthorTableController } from "./AuthorTable.controller";
 import { AuthorDTO } from "@infrastructure/apis/client";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AuthorAddDialog } from "../../Dialogs/AuthorAddDialog/AuthorAddDialog";
+import { AuthorEditDialog } from "../../Dialogs/AuthorAddDialog/AuthorUpdateDialog";
 
 /**
  * This hook returns a header for the table with translated columns.
@@ -63,10 +64,13 @@ export const AuthorTable = () => {
                             rowValues?.map(({ data, entry }, rowIndex) => <TableRow key={`row_${rowIndex + 1}`}>
                                 {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)}
                                 <TableCell>
-                                    {
+                                    {   
                                         <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
                                             <DeleteIcon color="error" fontSize='small' />
                                         </IconButton>
+                                    }
+                                    {   
+                                        <AuthorEditDialog id={entry.id} />
                                     }
                                 </TableCell>
                             </TableRow>)

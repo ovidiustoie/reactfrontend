@@ -18,6 +18,7 @@ import type {
   BookAddDTO,
   BookAddDTORequestResponse,
   BookDTOPagedResponseRequestResponse,
+  BookUpdateDTO,
   RequestResponse,
 } from '../models/index';
 import {
@@ -27,6 +28,8 @@ import {
     BookAddDTORequestResponseToJSON,
     BookDTOPagedResponseRequestResponseFromJSON,
     BookDTOPagedResponseRequestResponseToJSON,
+    BookUpdateDTOFromJSON,
+    BookUpdateDTOToJSON,
     RequestResponseFromJSON,
     RequestResponseToJSON,
 } from '../models/index';
@@ -47,6 +50,10 @@ export interface ApiBookGetPageGetRequest {
     search?: string;
     page?: number;
     pageSize?: number;
+}
+
+export interface ApiBookUpdatePutRequest {
+    bookUpdateDTO?: BookUpdateDTO;
 }
 
 /**
@@ -192,6 +199,37 @@ export class BookApi extends runtime.BaseAPI {
      */
     async apiBookGetPageGet(requestParameters: ApiBookGetPageGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BookDTOPagedResponseRequestResponse> {
         const response = await this.apiBookGetPageGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiBookUpdatePutRaw(requestParameters: ApiBookUpdatePutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RequestResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/api/Book/Update`,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BookUpdateDTOToJSON(requestParameters['bookUpdateDTO']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RequestResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiBookUpdatePut(requestParameters: ApiBookUpdatePutRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RequestResponse> {
+        const response = await this.apiBookUpdatePutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

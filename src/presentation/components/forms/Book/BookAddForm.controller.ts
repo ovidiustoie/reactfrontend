@@ -33,10 +33,23 @@ const getDefaultValues = (initialData?: BookAddFormModel) => {
 /**
  * Create a hook to get the validation schema.
  */
-const useInitBookAddForm = () => {
+const useInitBookAddForm = (id?: string) => {
     const { formatMessage } = useIntl();
     const defaultValues = getDefaultValues();
-
+    const { getBook } = useBookApi();
+    
+    let defValues: BookAddFormModel | (() => Promise<BookAddFormModel>) = defaultValues;
+    if (id) {
+        defValues = async (): Promise<BookAddFormModel> => {
+            const data = await getBook.query(id);
+            return {
+                id: data.response?.id || '',
+                title: data.response?.title || '',
+                summary: data.response?.summary || '',
+                authors: data.response?.authors || [],
+            };
+        };
+    }
     const schema = yup.object().shape({
         title: yup.string()
             .required(formatMessage(
@@ -62,20 +75,25 @@ const useInitBookAddForm = () => {
 
     const resolver = yupResolver(schema);
 
-    return { defaultValues, resolver };
+    return { defaultValues: defValues, resolver };
 }
 
 /**
  * Create a controller hook for the form and return any data that is necessary for the form.
  */
-export const useBookAddFormController = (onSubmit?: () => void): BookAddFormController => {
-    const { defaultValues, resolver } = useInitBookAddForm();
-    const { addBook: { mutation, key: mutationKey }, getBooks: { key: queryKey } } = useBookApi();
+export const useBookAddFormController = (onSubmit?: () => void, id?: string): BookAddFormController => {
+    const { 
+        addBook: { mutation, key: mutationKey }, 
+        updateBook: { mutation: mutationUpdate, key: mutationUpdateKey }, 
+        getBooks: { key: queryKey } 
+    
+    } = useBookApi();
     const { mutateAsync: add, status } = useMutation({
-        mutationKey: [mutationKey],
-        mutationFn: mutation
+        mutationKey: [id ? mutationUpdateKey:  mutationKey],
+        mutationFn: id ? mutationUpdate: mutation
     });
     const queryClient = useQueryClient();
+    const { defaultValues, resolver } = useInitBookAddForm(id);
     const submit = useCallback((data: BookAddFormModel) => // Create a submit callback to send the form data to the backend.
         add(data).then(() => {
             queryClient.invalidateQueries({ queryKey: [queryKey] }); // If the form submission succeeds then some other queries need to be refresh so invalidate them to do a refresh.
@@ -92,7 +110,7 @@ export const useBookAddFormController = (onSubmit?: () => void): BookAddFormCont
         setValue,
         formState: { errors }
     } = useForm<BookAddFormModel>({ // Use the useForm hook to get callbacks and variables to work with the form.
-        defaultValues, // Initialize the form with the default values.
+        defaultValues: defaultValues,
         resolver // Add the validation resolver.
     });
 
@@ -111,7 +129,7 @@ export const useBookAddFormController = (onSubmit?: () => void): BookAddFormCont
             selectAuthors,
         },
         computed: {
-            defaultValues,
+            defaultValues: getDefaultValues(),
             isSubmitting: status === "pending" // Return if the form is still submitting or nit.
         },
         state: {

@@ -6,9 +6,9 @@ import {
     DeepRequired,
     UseFormWatch
 } from "react-hook-form";
-import { SelectChangeEvent } from "@mui/material";
 
 export type AuthorAddFormModel = {
+    id?: string,
     firstName: string;
     lastName: string;
     description: string;

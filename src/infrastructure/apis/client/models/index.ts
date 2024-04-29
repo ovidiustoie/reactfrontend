@@ -12,6 +12,7 @@ export * from './BookAddDTORequestResponse';
 export * from './BookDTO';
 export * from './BookDTOPagedResponse';
 export * from './BookDTOPagedResponseRequestResponse';
+export * from './BookUpdateDTO';
 export * from './ErrorCodes';
 export * from './ErrorMessage';
 export * from './HttpStatusCode';

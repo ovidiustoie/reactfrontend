@@ -18,9 +18,9 @@ import { isEmpty, isUndefined } from "lodash";
  * Here we declare the user add form component.
  * This form may be used in modals so the onSubmit callback could close the modal on completion.
  */
-export const AuthorAddForm = (props: { onSubmit?: () => void }) => {
+export const AuthorAddForm = (props: { onSubmit?: () => void, id?:string }) => {
     const { formatMessage } = useIntl();
-    const { state, actions, computed } = useAuthorAddFormController(props.onSubmit); // Use the controller.
+    const { state, actions, computed } = useAuthorAddFormController(props.onSubmit, props.id); // Use the controller.
 
     return <form onSubmit={actions.handleSubmit(actions.submit)}> {/* Wrap your form into a form tag and use the handle submit callback to validate the form and call the data submission. */}
         <Stack spacing={4} style={{ width: "100%" }}>

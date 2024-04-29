@@ -9,6 +9,7 @@ import {
 } from "react-hook-form";
 
 export type BookAddFormModel = {
+    id?: string;
     title: string;
     summary: string;
     authors: AuthorRefDTO[];

@@ -1,6 +1,6 @@
 import { useAppSelector } from "@application/store";
 import { getAuthenticationConfiguration } from "@infrastructure/utils/userUtils";
-import { AuthorApi, AuthorDTO, ApiAuthorGetPageGetRequest } from "../client";
+import { AuthorApi, AuthorDTO, ApiAuthorGetPageGetRequest, AuthorUpdateDTO } from "../client";
 
 /**
  * Use constants to identify mutations and queries.
@@ -9,9 +9,10 @@ const getAuthorQueryKey = "getAuthorQuery";
 const getAuthorsQueryKey = "getAuthorsQuery";
 const addAuthorMutationKey = "addAuthorMutation";
 const deleteAuthorMutationKey = "deleteAuthorMutation";
+const updateAuthorMutationKey = "updateAuthorMutationKey";
 
 /**
- * Returns the an object with the callbacks that can be used for the React Query API, in this case to manage the user API.
+ * Returns the an object with the callbacks that can be used for the React Query API, in this case to manage the author API.
  */
 export const useAuthorApi = () => {
     const { token } = useAppSelector(x => x.profileReducer); // You can use the data form the Redux storage. 
@@ -21,6 +22,7 @@ export const useAuthorApi = () => {
     const getAuthor = (id: string) => new AuthorApi(config).apiAuthorGetByIdIdGet({ id });
     const addAuthor = (author: AuthorDTO) => new AuthorApi(config).apiAuthorAddPost({ authorAddDTO: author });
     const deleteAuthor = (id: string) => new AuthorApi(config).apiAuthorDeleteIdDelete({ id });
+    const updateAuthor = (author:AuthorUpdateDTO ) => new AuthorApi(config).apiAuthorUpdatePut({ authorUpdateDTO: author });
 
     return {
         getAuthors: { // Return the query object.
@@ -38,6 +40,10 @@ export const useAuthorApi = () => {
         deleteAuthor: {
             key: deleteAuthorMutationKey,
             mutation: deleteAuthor
+        },
+        updateAuthor: {
+            key: updateAuthorMutationKey,
+            mutation: updateAuthor
         },
     }
 }

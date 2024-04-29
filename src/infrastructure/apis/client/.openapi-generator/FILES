@@ -18,6 +18,7 @@ models/BookAddDTORequestResponse.ts
 models/BookDTO.ts
 models/BookDTOPagedResponse.ts
 models/BookDTOPagedResponseRequestResponse.ts
+models/BookUpdateDTO.ts
 models/ErrorCodes.ts
 models/ErrorMessage.ts
 models/HttpStatusCode.ts

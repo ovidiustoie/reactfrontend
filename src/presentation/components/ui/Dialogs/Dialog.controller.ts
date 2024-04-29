@@ -16,6 +16,7 @@ export const useDialogController = () => {
 
     return { // Return the callbacks and the current state.
         isOpen,
+        setIsOpen,
         close,
         open
     }
