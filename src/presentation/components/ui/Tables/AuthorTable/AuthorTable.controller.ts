@@ -8,7 +8,10 @@ import { usePaginationController } from "../Pagination.controller";
  * This is controller hook manages the table state including the pagination and data retrieval from the backend.
  */
 export const useAuthorTableController = () => {
-    const { getAuthors: { key: queryKey, query }, deleteAuthor: { key: deleteAuthorKey, mutation: deleteAuthor } } = useAuthorApi(); // Use the API hook.
+    const { 
+        getAuthors: { key: queryKey, query }, 
+        deleteAuthor: { key: deleteAuthorKey, mutation: deleteAuthor } 
+    } = useAuthorApi(); // Use the API hook.
     const queryClient = useQueryClient(); // Get the query client.
     const { page, pageSize, setPagination } = usePaginationController(); // Get the pagination state.
     const { data, isError, isLoading } = useQuery({
@@ -35,6 +38,6 @@ export const useAuthorTableController = () => {
         pagedData: data?.response,
         isError,
         isLoading,
-        remove
+        remove,
     };
 }

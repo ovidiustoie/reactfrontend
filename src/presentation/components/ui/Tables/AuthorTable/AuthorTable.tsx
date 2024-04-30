@@ -36,7 +36,16 @@ export const AuthorTable = () => {
     const { formatMessage } = useIntl();
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
-    const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, labelDisplay, remove } = useAuthorTableController(); // Use the controller hook.
+    const { 
+        handleChangePage, 
+        handleChangePageSize, 
+        pagedData, 
+        isError, 
+        isLoading, 
+        tryReload, 
+        labelDisplay, 
+        remove 
+    } = useAuthorTableController(); // Use the controller hook.
     const rowValues = getRowValues(pagedData?.data, orderMap); // Get the row values.
     const confirm = useConfirm();
     const removeHandler = (id:  string) => {
