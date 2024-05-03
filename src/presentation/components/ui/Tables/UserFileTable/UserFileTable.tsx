@@ -74,18 +74,18 @@ export const UserFileTable = () => {
                 <TableHead>
                     <TableRow>
                         {
-                            header.map(e => <TableCell key={`header_${String(e.key)}`}>{e.name}</TableCell>) // Add the table header.
+                            header.map(e => <TableCell key={`header_${String(e.key)}`}>{e.name}</TableCell>)
                         }
-                        <TableCell>{formatMessage({ id: "labels.actions" })}</TableCell> {/* Add additional header columns if needed. */}
+                        <TableCell>{formatMessage({ id: "labels.actions" })}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {
                         rowValues?.map(({ data, entry }, rowIndex) => <TableRow key={`row_${rowIndex + 1}`}>
                             {data.map((keyValue, index) => {
-                                return <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{isUndefined(renders[keyValue.key]) ? keyValue.value : renders[keyValue.key](keyValue.value)}</TableCell> // Add the row values.
+                                return <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{isUndefined(renders[keyValue.key]) ? keyValue.value : renders[keyValue.key](keyValue.value)}</TableCell>
                             })}
-                            <TableCell> {/* Add other cells like action buttons. */}
+                            <TableCell>
                                 {<IconButton color="primary" onClick={() => downloadUserFile(entry)}>
                                     <CloudDownloadIcon color="primary" fontSize='small' />
                                 </IconButton>}

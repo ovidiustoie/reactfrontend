@@ -1,1 +1,1 @@
-export * from './AuthorAddDialog';
+export * from './BookAddDialog';

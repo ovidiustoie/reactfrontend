@@ -25,7 +25,7 @@
     "globals.validations.requiredField": "{fieldName} este camp obligatoriu!",
     "globals.registerUser": "Creare cont",
     "globals.confirmPassword": "Confirmare",
-    "globals.fullName": "Nume Complet",
+    "globals.authorName": "Autor",
     "globals.lastName": "Nume",
     "globals.firstName": "Prenume",
     "globals.bookTitle": "Carte",
@@ -35,5 +35,8 @@
     "globals.confirm": "Confirmare",
     "globals.confirmRemove": "Esti sigur ca vrei sa stergi acest element ?",
     "globals.confirmOK": "Da",
-    "globals.confirmCancel": "Abandonare"
+    "globals.confirmCancel": "Nu",
+    "globals.search": "Căutare",
+    "globals.librarians": "Bibliotecari",
+    "globals.librarianPosition": "Post"
 }

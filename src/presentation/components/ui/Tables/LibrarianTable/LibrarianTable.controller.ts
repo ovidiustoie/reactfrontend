@@ -1,5 +1,5 @@
 import { useTableController } from "../Table.controller";
-import { useBookApi } from "@infrastructure/apis/api-management";
+import { useLibrarianApi } from "@infrastructure/apis/api-management";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { usePaginationController } from "../Pagination.controller";
@@ -8,18 +8,21 @@ import { useSearchController } from "../Search.controller";
 /**
  * This is controller hook manages the table state including the pagination and data retrieval from the backend.
  */
-export const useBookTableController = () => {
-    const { getBooks: { key: queryKey, query }, deleteBook: { key: deleteBookKey, mutation: deleteBook } } = useBookApi(); // Use the API hook.
+export const useLibrarianTableController = () => {
+    const { 
+        getLibrarians: { key: queryKey, query }, 
+        deleteLibrarian: { key: deleteLibrarianKey, mutation: deleteLibrarian } 
+    } = useLibrarianApi(); // Use the API hook.
     const queryClient = useQueryClient(); // Get the query client.
     const { page, pageSize, setPagination } = usePaginationController(); // Get the pagination state.
     const {search, setSearchValue} = useSearchController();
     const { data, isError, isLoading } = useQuery({
-        queryKey: [queryKey, page, pageSize, search],
+        queryKey: [queryKey, page, pageSize, search ],
         queryFn: () => query({ page, pageSize, search })
     }); // Retrieve the table page from the backend via the query hook.
     const { mutateAsync: deleteMutation } = useMutation({
-        mutationKey: [deleteBookKey],
-        mutationFn: deleteBook
+        mutationKey: [deleteLibrarianKey],
+        mutationFn: deleteLibrarian
     }); // Use a mutation to remove an entry.
     const remove = useCallback(
         (id: string) => deleteMutation(id).then(() => queryClient.invalidateQueries({ queryKey: [queryKey] })),

@@ -2,6 +2,7 @@
 apis/AuthorApi.ts
 apis/AuthorizationApi.ts
 apis/BookApi.ts
+apis/LibrarianApi.ts
 apis/UserApi.ts
 apis/UserFileApi.ts
 apis/index.ts
@@ -22,6 +23,12 @@ models/BookUpdateDTO.ts
 models/ErrorCodes.ts
 models/ErrorMessage.ts
 models/HttpStatusCode.ts
+models/LibrarianAddDTO.ts
+models/LibrarianDTO.ts
+models/LibrarianDTOPagedResponse.ts
+models/LibrarianDTOPagedResponseRequestResponse.ts
+models/LibrarianDTORequestResponse.ts
+models/LibrarianUpdateDTO.ts
 models/LoginDTO.ts
 models/LoginResponseDTO.ts
 models/LoginResponseDTORequestResponse.ts

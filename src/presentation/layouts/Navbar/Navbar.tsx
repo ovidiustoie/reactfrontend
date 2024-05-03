@@ -8,13 +8,15 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from 'routes';
 import { useIntl } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '@application/store';
-import { Grid } from '@mui/material';
+import { Grid, Menu, MenuItem } from '@mui/material';
 import { resetProfile } from '@application/state-slices';
 import { useAppRouter } from '@infrastructure/hooks/useAppRouter';
 import { NavbarLanguageSelector } from '@presentation/components/ui/NavbarLanguageSelector/NavbarLanguageSelector';
 import { useOwnUserHasRole } from '@infrastructure/hooks/useOwnUser';
 import { UserRoleEnum } from '@infrastructure/apis/client';
-
+import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
+import React from 'react';
+import { Person } from '@mui/icons-material';
 /**
  * This is the navigation menu that will stay at the top of the page.
  */
@@ -22,6 +24,7 @@ export const Navbar = () => {
   const { formatMessage } = useIntl();
   const { loggedIn } = useAppSelector(x => x.profileReducer);
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
+  const isPersonnel = useOwnUserHasRole(UserRoleEnum.Personnel);
   const dispatch = useAppDispatch();
   const { redirectToHome } = useAppRouter();
   const logout = useCallback(() => {
@@ -48,44 +51,67 @@ export const Navbar = () => {
             </Link>
           </Grid>
           <Grid container item direction="column" xs={8}>
-            {isAdmin && <Grid // If the user is logged in and it is an admin they can have new menu items shown.
+          <Grid // If the user is logged in and it is an admin they can have new menu items shown.
               container
               item
               direction="row"
-              xs={12}
+              xs={1}
               alignItems="center"
               wrap="nowrap"
               columnSpacing={15}
             >
+            {(isAdmin || isPersonnel) && <Grid container item direction="column" xs={1}>
+                <PopupState variant="popover">
+                  {(popupState) => (
+                    <React.Fragment>
+                      <Button component="div" variant="text" disableElevation={true} color="inherit" {...bindTrigger(popupState)}>
+                        {formatMessage({ id: "globals.users" })}
+                      </Button>
+                      <Menu {...bindMenu(popupState)}>
+                      {isAdmin && <MenuItem onClick={popupState.close}>
+                          <Link to={AppRoute.Users}>
+                            {formatMessage({ id: "globals.users" })}
+                          </Link>
+                        </MenuItem>}
+                        {isAdmin && <MenuItem onClick={popupState.close}>
+                          <Link to={AppRoute.UserFiles}>
+                            {formatMessage({ id: "globals.files" })}
+                          </Link>
+                        </MenuItem>}
+                        {(isAdmin || isPersonnel) && <MenuItem onClick={popupState.close}>
+                          <Link to={AppRoute.Librarians}>
+                            {formatMessage({ id: "globals.librarians" })}
+                          </Link>
+                        </MenuItem>}
+                      </Menu>
+                    </React.Fragment>
+                  )}
+                </PopupState>
+              </Grid>}
               <Grid container item direction="column" xs={1}>
-                <Button color="inherit">
-                  <Link style={{ color: 'white' }} to={AppRoute.Users}>
-                    {formatMessage({ id: "globals.users" })}
-                  </Link>
-                </Button>
+              <PopupState variant="popover">
+                  {(popupState) => (
+                    <React.Fragment>
+                      <Button component="div"  variant="text" disableElevation={true} color="inherit" {...bindTrigger(popupState)}>
+                        {formatMessage({ id: "globals.books" })}
+                      </Button>
+                      <Menu {...bindMenu(popupState)}>
+                        <MenuItem onClick={popupState.close}>
+                          <Link to={AppRoute.Authors}>
+                            {formatMessage({ id: "globals.authors" })}
+                          </Link>
+                        </MenuItem>
+                        <MenuItem onClick={popupState.close}>
+                          <Link to={AppRoute.Books}>
+                            {formatMessage({ id: "globals.books" })}
+                          </Link>
+                        </MenuItem>
+                      </Menu>
+                    </React.Fragment>
+                  )}
+                </PopupState>
               </Grid>
-              <Grid container item direction="column" xs={1}>
-                <Button color="inherit">
-                  <Link style={{ color: 'white' }} to={AppRoute.UserFiles}>
-                    {formatMessage({ id: "globals.files" })}
-                  </Link>
-                </Button>
-              </Grid>
-              <Grid container item direction="column" xs={1}>
-                <Button color="inherit">
-                  <Link style={{ color: 'white' }} to={AppRoute.Authors}>
-                    {formatMessage({ id: "globals.authors" })}
-                  </Link>
-                </Button>
-              </Grid>
-              <Grid container item direction="column" xs={1}>
-                <Button color="inherit">
-                  <Link style={{ color: 'white' }} to={AppRoute.Books}>
-                    {formatMessage({ id: "globals.books" })}
-                  </Link>
-                </Button>
-              </Grid>
-            </Grid>}
+            </Grid>
           </Grid>
           <Grid container item direction="column" xs={1}>
             <NavbarLanguageSelector />

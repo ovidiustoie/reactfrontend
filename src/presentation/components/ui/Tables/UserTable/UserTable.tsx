@@ -63,17 +63,16 @@ export const UserTable = () => {
         <TableContainer component={Paper}>
             <Table>
                 <TableHead>
-                    <TableRow>
-                        {
-                            header.map(e => <TableCell key={`header_${String(e.key)}`}>{e.name}</TableCell>) // Add the table header.
+                    <TableRow>{
+                            header.map(e => <TableCell key={`header_${String(e.key)}`}>{e.name}</TableCell>)
                         }
-                        <TableCell>{formatMessage({ id: "labels.actions" })}</TableCell> {/* Add additional header columns if needed. */}
+                        <TableCell>{formatMessage({ id: "labels.actions" })}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {
                         rowValues?.map(({ data, entry }, rowIndex) => <TableRow key={`row_${rowIndex + 1}`}>
-                            {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)} {/* Add the row values. */}
+                            {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)}
                             <TableCell> {/* Add other cells like action buttons. */}
                                 {entry.id !== ownUserId && <IconButton color="error" onClick={() => remove(entry.id || '')}>
                                     <DeleteIcon color="error" fontSize='small' />

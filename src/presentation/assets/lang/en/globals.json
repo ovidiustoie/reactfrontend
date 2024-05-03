@@ -25,7 +25,7 @@
     "globals.validations.requiredField": "{fieldName} is a required field!",
     "globals.registerUser": "Create account",
     "globals.confirmPassword": "Confirm",
-    "globals.fullName": "Full Name",
+    "globals.authorName": "Author",
     "globals.lastName": "Last Name",
     "globals.firstName": "First Name",
     "globals.bookTitle": "Book's title",
@@ -35,5 +35,9 @@
     "globals.confirm": "Confirmation",
     "globals.confirmRemove": "Want to proceed with removing this item?",
     "globals.confirmOK": "OK",
-    "globals.confirmCancel": "Cancel"
+    "globals.confirmCancel": "Cancel",
+    "globals.search": "Search",
+    "globals.librarians": "Librarians",
+    "globals.librarianPosition": "Position"
+    
 }

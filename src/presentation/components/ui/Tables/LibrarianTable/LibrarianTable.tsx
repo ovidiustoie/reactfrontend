@@ -3,17 +3,20 @@ import { isUndefined } from "lodash";
 import { useConfirm } from "material-ui-confirm";
 import { IconButton, Paper, Table, TableBody, TableCell, TableFooter, TableContainer, TableHead, TablePagination, TableRow, Typography, OutlinedInput, TextField, Box, Toolbar, Grid } from "@mui/material";
 import { DataLoadingContainer } from "../../LoadingDisplay";
-import { useAuthorTableController } from "./AuthorTable.controller";
-import { AuthorDTO } from "@infrastructure/apis/client";
+import { useLibrarianTableController } from "./LibrarianTable.controller";
+import { LibrarianDTO } from "@infrastructure/apis/client";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AuthorAddDialog } from "../../Dialogs/AuthorAddDialog/AuthorAddDialog";
-import { AuthorEditDialog } from "../../Dialogs/AuthorAddDialog/AuthorUpdateDialog";
+import { LibrarianAddDialog } from "../../Dialogs/LibrarianAddDialog";
+import { LibrarianEditDialog } from "../../Dialogs/LibrarianAddDialog/LibrarianUpdateDialog";
 
 
-const useHeader = (): { key: keyof AuthorDTO, name: string }[] => {
+const useHeader = (): { key: keyof LibrarianDTO, name: string }[] => {
     const { formatMessage } = useIntl();
     return [
-        { key: "fullName", name: formatMessage({ id: "globals.authorName" }) },
+        { key: "firstName", name: formatMessage({ id: "globals.firstName" }) },
+        { key: "lastName", name: formatMessage({ id: "globals.lastName" }) },
+        { key: "email", name: formatMessage({ id: "globals.email" }) },
+        { key: "position", name: formatMessage({ id: "globals.librarianPosition" }) },
         { key: "description", name: formatMessage({ id: "globals.description" }) }
     ]
 };
@@ -21,7 +24,7 @@ const useHeader = (): { key: keyof AuthorDTO, name: string }[] => {
 /**
  * The values in the table are organized as rows so this function takes the entries and creates the row values ordering them according to the order map.
  */
-const getRowValues = (entries: AuthorDTO[] | null | undefined, orderMap: { [key: string]: number }) =>
+const getRowValues = (entries: LibrarianDTO[] | null | undefined, orderMap: { [key: string]: number }) =>
     entries?.map(
         entry => {
             return {
@@ -30,7 +33,7 @@ const getRowValues = (entries: AuthorDTO[] | null | undefined, orderMap: { [key:
             }
         });
 
-export const AuthorTable = () => {
+export const LibrarianTable = () => {
     const { formatMessage } = useIntl();
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
@@ -45,7 +48,7 @@ export const AuthorTable = () => {
         remove,
         search,
         setSearchValue,
-    } = useAuthorTableController(); // Use the controller hook.
+    } = useLibrarianTableController(); // Use the controller hook.
     const rowValues = getRowValues(pagedData?.data, orderMap); // Get the row values.
     const confirm = useConfirm();
     const removeHandler = (id: string) => {
@@ -59,7 +62,7 @@ export const AuthorTable = () => {
     return <DataLoadingContainer isError={isError} isLoading={isLoading} tryReload={tryReload}> {/* Wrap the table into the loading container because data will be fetched from the backend and is not immediately available.*/}
         
         <Grid container item direction="row" xs={12} columnSpacing={4}>
-                <Grid container item direction="column" xs={6} md={6}><AuthorAddDialog /></Grid>
+                <Grid container item direction="column" xs={6} md={6}><LibrarianAddDialog /></Grid>
                 <Grid container item direction="column" xs={6} md={6}><TextField placeholder={formatMessage({ id: "globals.search" })} size="small" onChange={(e) => setSearchValue(e.target.value)} autoComplete="none" /></Grid>
         </Grid>
         <TableContainer component={Paper}>
@@ -81,7 +84,7 @@ export const AuthorTable = () => {
                                     </IconButton>
                                 }
                                 {
-                                    <AuthorEditDialog id={entry.id} />
+                                    <LibrarianEditDialog id={entry.id} />
                                 }
                             </TableCell>
                         </TableRow>)

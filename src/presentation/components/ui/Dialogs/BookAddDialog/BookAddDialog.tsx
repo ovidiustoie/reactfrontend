@@ -2,6 +2,7 @@ import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useBookAddDialogController } from "./BookAddDialog.controller";
 import { BookAddForm } from "@presentation/components/forms/Book/BookAddForm";
 import { useIntl } from "react-intl";
+import { ControlPoint } from "@mui/icons-material";
 
 /**
  * This component wraps the user add form into a modal dialog.
@@ -11,7 +12,7 @@ export const BookAddDialog = () => {
   const { formatMessage } = useIntl();
 
   return <div>
-    <Button variant="outlined" onClick={open}>
+    <Button  startIcon={<ControlPoint />}  variant="outlined" onClick={open}>
       {formatMessage({ id: "labels.addBook" })}
     </Button>
     <Dialog

@@ -4,12 +4,14 @@
     "labels.paginationLabelOverflow": "{from}-{to} din mai mult de {to}",
     "labels.yes": "Da",
     "labels.no": "Nu",
-    "labels.actions": "Actiuni",
+    "labels.actions": "Acțiuni",
     "labels.addUser": "Adauga utilizator",
-    "labels.addAuthor": "Adauga autor",
+    "labels.addAuthor": "Autor",
     "labels.editAuthor": "Modificare autor",
     "labels.editBook": "Modificare carte",
     "labels.addUserFile": "Adauga fisier",
-    "labels.addBook": "Carte"
+    "labels.addBook": "Carte",
+    "labels.addLibrarian": "Bibliotecar",
+    "labels.editLibrarian": "Modificare bibliotecar"
     
 }

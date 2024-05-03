@@ -3,6 +3,7 @@ import { useAuthorApi } from "@infrastructure/apis/api-management";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { usePaginationController } from "../Pagination.controller";
+import { useSearchController } from "../Search.controller";
 
 /**
  * This is controller hook manages the table state including the pagination and data retrieval from the backend.
@@ -14,9 +15,10 @@ export const useAuthorTableController = () => {
     } = useAuthorApi(); // Use the API hook.
     const queryClient = useQueryClient(); // Get the query client.
     const { page, pageSize, setPagination } = usePaginationController(); // Get the pagination state.
+    const {search, setSearchValue} = useSearchController();
     const { data, isError, isLoading } = useQuery({
-        queryKey: [queryKey, page, pageSize],
-        queryFn: () => query({ page, pageSize })
+        queryKey: [queryKey, page, pageSize, search ],
+        queryFn: () => query({ page, pageSize, search })
     }); // Retrieve the table page from the backend via the query hook.
     const { mutateAsync: deleteMutation } = useMutation({
         mutationKey: [deleteAuthorKey],
@@ -39,5 +41,7 @@ export const useAuthorTableController = () => {
         isError,
         isLoading,
         remove,
+        search,
+        setSearchValue,
     };
 }

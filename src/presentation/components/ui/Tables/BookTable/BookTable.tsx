@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { isUndefined } from "lodash";
 import { useConfirm } from "material-ui-confirm";
-import { IconButton, Paper, Table, TableBody, TableCell, TableFooter, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
+import { IconButton, Paper, Table, TableBody, TableCell, TableFooter, TableContainer, TableHead, TablePagination, TableRow, Typography, Grid, TextField } from "@mui/material";
 import { DataLoadingContainer } from "../../LoadingDisplay";
 import { useBookTableController } from "./BookTable.controller";
 import { BookDTO } from "@infrastructure/apis/client";
@@ -38,7 +38,12 @@ export const BookTable = () => {
     const { formatMessage } = useIntl();
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
-    const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, labelDisplay, remove } = useBookTableController(); // Use the controller hook.
+    const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, 
+        labelDisplay, 
+        remove,
+        search,
+        setSearchValue,
+    } = useBookTableController(); // Use the controller hook.
     const rowValues = getRowValues(pagedData?.data, orderMap); // Get the row values.
     const confirm = useConfirm();
     const removeHandler = (id: string) => {
@@ -50,56 +55,57 @@ export const BookTable = () => {
         }).then(() => remove(id || '')).catch(() => { });
     };
     return <DataLoadingContainer isError={isError} isLoading={isLoading} tryReload={tryReload}> {/* Wrap the table into the loading container because data will be fetched from the backend and is not immediately available.*/}
-        <BookAddDialog />
-        <Paper sx={{ width: '100%', mb: 2 }}>
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>{
-                                header.map(e => <TableCell key={`header_${String(e.key)}`}>{e.name}</TableCell>)
-                            }
-                            <TableCell>{formatMessage({ id: "labels.actions" })}</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            rowValues?.map(({ data, entry }, rowIndex) => <TableRow key={`row_${rowIndex + 1}`}>
-                                {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)}
-                                <TableCell> {/* Add other cells like action buttons. */}
-                                    {
-                                        <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
-                                            <DeleteIcon color="error" fontSize='small' />
-                                        </IconButton>
-                                    }
-                                    {   
-                                        <BookUpdateDialog id={entry.id} />
-                                    }
-                                </TableCell>
-                            </TableRow>)
-                        }
-                    </TableBody>
-                    {!isUndefined(pagedData) && !isUndefined(pagedData?.totalCount) && !isUndefined(pagedData?.page) && !isUndefined(pagedData?.pageSize) &&
-                        <TableFooter>
-                            <TableRow>
-                                <TableCell colSpan={4} >
-                                    <TablePagination
-                                        rowsPerPageOptions={[5, 10, 25]}
-                                        component="div"
-                                        count={pagedData.totalCount}
-                                        rowsPerPage={pagedData.pageSize}
-                                        page={pagedData.totalCount !== 0 ? pagedData.page - 1 : 0}
-                                        labelRowsPerPage={formatMessage({ id: "labels.itemsPerPage" })}
-                                        onPageChange={handleChangePage}
-                                        labelDisplayedRows={labelDisplay}
-                                        onRowsPerPageChange={handleChangePageSize}
-                                    />
+        <Grid container item direction="row" xs={12} columnSpacing={4}>
+                <Grid container item direction="column" xs={6} md={6}><BookAddDialog /></Grid>
+                <Grid container item direction="column" xs={6} md={6}><TextField placeholder={formatMessage({ id: "globals.search" })} size="small" onChange={(e) => setSearchValue(e.target.value)} autoComplete="none" /></Grid>
+        </Grid>
+        <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }}>
+                <TableHead>
+                    <TableRow>{
+                        header.map(e => <TableCell key={`header_${String(e.key)}`}>{e.name}</TableCell>)
+                    }
+                        <TableCell>{formatMessage({ id: "labels.actions" })}</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {
+                        rowValues?.map(({ data, entry }, rowIndex) => <TableRow key={`row_${rowIndex + 1}`}>
+                            {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)}
+                            <TableCell> {/* Add other cells like action buttons. */}
+                                {
+                                    <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
+                                        <DeleteIcon color="error" fontSize='small' />
+                                    </IconButton>
+                                }
+                                {
+                                    <BookUpdateDialog id={entry.id} />
+                                }
+                            </TableCell>
+                        </TableRow>)
+                    }
+                </TableBody>
+                {!isUndefined(pagedData) && !isUndefined(pagedData?.totalCount) && !isUndefined(pagedData?.page) && !isUndefined(pagedData?.pageSize) &&
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell colSpan={header.length + 1} >
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 25]}
+                                    component="div"
+                                    count={pagedData.totalCount}
+                                    rowsPerPage={pagedData.pageSize}
+                                    page={pagedData.totalCount !== 0 ? pagedData.page - 1 : 0}
+                                    labelRowsPerPage={formatMessage({ id: "labels.itemsPerPage" })}
+                                    onPageChange={handleChangePage}
+                                    labelDisplayedRows={labelDisplay}
+                                    onRowsPerPageChange={handleChangePageSize}
+                                />
 
-                                </TableCell>
-                            </TableRow>
-                        </TableFooter>}
-                </Table>
-            </TableContainer>
-        </Paper>
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>}
+            </Table>
+        </TableContainer>
     </DataLoadingContainer>
 
 }

@@ -13,9 +13,11 @@ import { BooksPage } from "@presentation/pages/BooksPage";
 import { Route, Routes } from "react-router-dom";
 import { AppRoute } from "routes";
 import { ConfirmProvider } from "material-ui-confirm"
+import { LibrariansPage } from "@presentation/pages/LibrariansPage";
 
 export function App() {
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
+  const isPersonal = useOwnUserHasRole(UserRoleEnum.Personnel); 
 
   return <AppIntlProvider> {/* AppIntlProvider provides the functions to search the text after the provides string ids. */}
     <ToastNotifier />
@@ -29,6 +31,7 @@ export function App() {
         {isAdmin && <Route path={AppRoute.UserFiles} element={<UserFilesPage />} />}
         {<Route path={AppRoute.Authors} element={<AuthorsPage />} />}
         {<Route path={AppRoute.Books} element={<BooksPage />} />}
+        {(isAdmin || isPersonal) && <Route path={AppRoute.Librarians} element={<LibrariansPage />} />}
       </Routes>
     }</ConfirmProvider>
   </AppIntlProvider>
