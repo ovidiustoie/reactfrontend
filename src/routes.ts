@@ -10,4 +10,5 @@ export enum AppRoute {
     Authors = "/authors",
     Books = "/books",
     Librarians = "/Librarians",
+    BookItems = "/BookItems/:id",
 }

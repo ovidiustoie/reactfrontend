@@ -4,10 +4,11 @@ import { useConfirm } from "material-ui-confirm";
 import { IconButton, Paper, Table, TableBody, TableCell, TableFooter, TableContainer, TableHead, TablePagination, TableRow, Typography, OutlinedInput, TextField, Box, Toolbar, Grid } from "@mui/material";
 import { DataLoadingContainer } from "../../LoadingDisplay";
 import { useLibrarianTableController } from "./LibrarianTable.controller";
-import { LibrarianDTO } from "@infrastructure/apis/client";
+import { LibrarianDTO, UserRoleEnum } from "@infrastructure/apis/client";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { LibrarianAddDialog } from "../../Dialogs/LibrarianAddDialog";
 import { LibrarianEditDialog } from "../../Dialogs/LibrarianAddDialog/LibrarianUpdateDialog";
+import { useOwnUserHasRole } from '@infrastructure/hooks/useOwnUser';
 
 
 const useHeader = (): { key: keyof LibrarianDTO, name: string }[] => {
@@ -34,6 +35,7 @@ const getRowValues = (entries: LibrarianDTO[] | null | undefined, orderMap: { [k
         });
 
 export const LibrarianTable = () => {
+    const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
     const { formatMessage } = useIntl();
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
@@ -62,7 +64,7 @@ export const LibrarianTable = () => {
     return <DataLoadingContainer isError={isError} isLoading={isLoading} tryReload={tryReload}> {/* Wrap the table into the loading container because data will be fetched from the backend and is not immediately available.*/}
         
         <Grid container item direction="row" xs={12} columnSpacing={4}>
-                <Grid container item direction="column" xs={6} md={6}><LibrarianAddDialog /></Grid>
+                <Grid container item direction="column" xs={6} md={6}>{isAdmin && <LibrarianAddDialog />}</Grid>
                 <Grid container item direction="column" xs={6} md={6}><TextField placeholder={formatMessage({ id: "globals.search" })} size="small" onChange={(e) => setSearchValue(e.target.value)} autoComplete="none" /></Grid>
         </Grid>
         <TableContainer component={Paper}>
@@ -79,12 +81,12 @@ export const LibrarianTable = () => {
                             {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)}
                             <TableCell>
                                 {
-                                    <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
+                                    isAdmin && <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
                                         <DeleteIcon color="error" fontSize='small' />
                                     </IconButton>
                                 }
                                 {
-                                    <LibrarianEditDialog id={entry.id} />
+                                    isAdmin && <LibrarianEditDialog id={entry.id} />
                                 }
                             </TableCell>
                         </TableRow>)

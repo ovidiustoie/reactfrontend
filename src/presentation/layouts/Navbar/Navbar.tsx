@@ -16,7 +16,6 @@ import { useOwnUserHasRole } from '@infrastructure/hooks/useOwnUser';
 import { UserRoleEnum } from '@infrastructure/apis/client';
 import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
 import React from 'react';
-import { Person } from '@mui/icons-material';
 /**
  * This is the navigation menu that will stay at the top of the page.
  */
@@ -88,7 +87,7 @@ export const Navbar = () => {
                   )}
                 </PopupState>
               </Grid>}
-              <Grid container item direction="column" xs={1}>
+              {loggedIn && <Grid container item direction="column" xs={1}>
               <PopupState variant="popover">
                   {(popupState) => (
                     <React.Fragment>
@@ -110,7 +109,7 @@ export const Navbar = () => {
                     </React.Fragment>
                   )}
                 </PopupState>
-              </Grid>
+              </Grid>}
             </Grid>
           </Grid>
           <Grid container item direction="column" xs={1}>

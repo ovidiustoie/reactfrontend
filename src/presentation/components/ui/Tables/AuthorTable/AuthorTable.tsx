@@ -4,10 +4,11 @@ import { useConfirm } from "material-ui-confirm";
 import { IconButton, Paper, Table, TableBody, TableCell, TableFooter, TableContainer, TableHead, TablePagination, TableRow, Typography, OutlinedInput, TextField, Box, Toolbar, Grid } from "@mui/material";
 import { DataLoadingContainer } from "../../LoadingDisplay";
 import { useAuthorTableController } from "./AuthorTable.controller";
-import { AuthorDTO } from "@infrastructure/apis/client";
+import { AuthorDTO, UserRoleEnum } from "@infrastructure/apis/client";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AuthorAddDialog } from "../../Dialogs/AuthorAddDialog/AuthorAddDialog";
 import { AuthorEditDialog } from "../../Dialogs/AuthorAddDialog/AuthorUpdateDialog";
+import { useOwnUserHasRole } from '@infrastructure/hooks/useOwnUser';
 
 
 const useHeader = (): { key: keyof AuthorDTO, name: string }[] => {
@@ -31,6 +32,7 @@ const getRowValues = (entries: AuthorDTO[] | null | undefined, orderMap: { [key:
         });
 
 export const AuthorTable = () => {
+    const isPersonnel = useOwnUserHasRole(UserRoleEnum.Personnel);
     const { formatMessage } = useIntl();
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
@@ -59,7 +61,7 @@ export const AuthorTable = () => {
     return <DataLoadingContainer isError={isError} isLoading={isLoading} tryReload={tryReload}> {/* Wrap the table into the loading container because data will be fetched from the backend and is not immediately available.*/}
         
         <Grid container item direction="row" xs={12} columnSpacing={4}>
-                <Grid container item direction="column" xs={6} md={6}><AuthorAddDialog /></Grid>
+                <Grid container item direction="column" xs={6} md={6}>{isPersonnel && <AuthorAddDialog />}</Grid>
                 <Grid container item direction="column" xs={6} md={6}><TextField placeholder={formatMessage({ id: "globals.search" })} size="small" onChange={(e) => setSearchValue(e.target.value)} autoComplete="none" /></Grid>
         </Grid>
         <TableContainer component={Paper}>
@@ -76,12 +78,12 @@ export const AuthorTable = () => {
                             {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)}
                             <TableCell>
                                 {
-                                    <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
+                                    isPersonnel && <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
                                         <DeleteIcon color="error" fontSize='small' />
                                     </IconButton>
                                 }
                                 {
-                                    <AuthorEditDialog id={entry.id} />
+                                    isPersonnel && <AuthorEditDialog id={entry.id} />
                                 }
                             </TableCell>
                         </TableRow>)

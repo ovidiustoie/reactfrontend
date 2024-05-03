@@ -1,14 +1,17 @@
 import { useIntl } from "react-intl";
 import { isUndefined } from "lodash";
 import { useConfirm } from "material-ui-confirm";
-import { IconButton, Paper, Table, TableBody, TableCell, TableFooter, TableContainer, TableHead, TablePagination, TableRow, Typography, Grid, TextField } from "@mui/material";
+import { IconButton, Paper, Table, TableBody, TableCell, TableFooter, TableContainer, TableHead, TablePagination, TableRow, Typography, Grid, TextField, Link } from "@mui/material";
 import { DataLoadingContainer } from "../../LoadingDisplay";
 import { useBookTableController } from "./BookTable.controller";
-import { BookDTO } from "@infrastructure/apis/client";
+import { BookDTO, UserRoleEnum } from "@infrastructure/apis/client";
 import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 import { BookAddDialog } from "../../Dialogs/BookAddDialog/BookAddDialog";
 import { BookUpdateDialog } from "../../Dialogs/BookAddDialog/BookUpdateDialog";
-
+import { useOwnUserHasRole } from '@infrastructure/hooks/useOwnUser';
+import { AppRoute } from "routes";
 /**
  * This hook returns a header for the table with translated columns.
  */
@@ -36,6 +39,7 @@ const getRowValues = (entries: BookDTO[] | null | undefined, orderMap: { [key: s
 
 export const BookTable = () => {
     const { formatMessage } = useIntl();
+    const isPersonnel = useOwnUserHasRole(UserRoleEnum.Personnel);
     const header = useHeader();
     const orderMap = header.reduce((acc, e, i) => { return { ...acc, [e.key]: i } }, {}) as { [key: string]: number }; // Get the header column order.
     const { handleChangePage, handleChangePageSize, pagedData, isError, isLoading, tryReload, 
@@ -56,7 +60,7 @@ export const BookTable = () => {
     };
     return <DataLoadingContainer isError={isError} isLoading={isLoading} tryReload={tryReload}> {/* Wrap the table into the loading container because data will be fetched from the backend and is not immediately available.*/}
         <Grid container item direction="row" xs={12} columnSpacing={4}>
-                <Grid container item direction="column" xs={6} md={6}><BookAddDialog /></Grid>
+                <Grid container item direction="column" xs={6} md={6}>{isPersonnel && <BookAddDialog />}</Grid>
                 <Grid container item direction="column" xs={6} md={6}><TextField placeholder={formatMessage({ id: "globals.search" })} size="small" onChange={(e) => setSearchValue(e.target.value)} autoComplete="none" /></Grid>
         </Grid>
         <TableContainer component={Paper}>
@@ -73,14 +77,20 @@ export const BookTable = () => {
                         rowValues?.map(({ data, entry }, rowIndex) => <TableRow key={`row_${rowIndex + 1}`}>
                             {data.map((keyValue, index) => <TableCell key={`cell_${rowIndex + 1}_${index + 1}`}>{keyValue.value}</TableCell>)}
                             <TableCell> {/* Add other cells like action buttons. */}
-                                {
-                                    <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
+                               {
+                                    isPersonnel && <IconButton color="error" onClick={() => removeHandler(entry.id || '')}>
                                         <DeleteIcon color="error" fontSize='small' />
                                     </IconButton>
                                 }
                                 {
-                                    <BookUpdateDialog id={entry.id} />
+                                    isPersonnel && <BookUpdateDialog id={entry.id} />
                                 }
+                                {
+                                    <IconButton href={`/BookItems/${entry.id}`} >
+                                        <VisibilityIcon color="primary" fontSize='small' />
+                                    </IconButton>
+                                }
+                                
                             </TableCell>
                         </TableRow>)
                     }
