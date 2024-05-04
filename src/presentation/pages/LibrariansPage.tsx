@@ -7,7 +7,7 @@ import { LibrarianTable } from "@presentation/components/ui/Tables/LibrarianTabl
 
 export const LibrariansPage = memo(() => {
   return <Fragment>
-    <Seo title="MobyLab Web App | Authors" />
+    <Seo title="MobyLab Web App | Librarians" />
     <WebsiteLayout>
     <Box sx={{ padding: "0px 50px 00px 50px", justifyItems: "center" }}>
         <ContentCard>

@@ -7,8 +7,6 @@ import {
     Grid,
     Stack,
     OutlinedInput,
-    Select,
-    MenuItem
 } from "@mui/material";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useAuthorAddFormController } from "./AuthorAddForm.controller";

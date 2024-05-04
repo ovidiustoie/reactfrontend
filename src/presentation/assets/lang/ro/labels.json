@@ -8,6 +8,8 @@
     "labels.addUser": "Adauga utilizator",
     "labels.addAuthor": "Autor",
     "labels.editAuthor": "Modificare autor",
+    "labels.editBookItem": "Modificare examplar carte",
+    "labels.addBookItem": "Examplar carte",
     "labels.editBook": "Modificare carte",
     "labels.addUserFile": "Adauga fisier",
     "labels.addBook": "Carte",

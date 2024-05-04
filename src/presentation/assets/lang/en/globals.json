@@ -38,6 +38,7 @@
     "globals.confirmCancel": "Cancel",
     "globals.search": "Search",
     "globals.librarians": "Librarians",
-    "globals.librarianPosition": "Position"
+    "globals.librarianPosition": "Position",
+    "globals.barCode": "Bar Code" 
     
 }

@@ -8,10 +8,13 @@
     "labels.addUser": "Add user",
     "labels.addAuthor": "Author",
     "labels.editAuthor": "Modify author",
+    "labels.editBookItem": "Modify Book Item",
+    "labels.addBookItem": "Book Item",
     "labels.editBook": "Modify book",
     "labels.addUserFile": "Add file",
     "labels.addBook": "Book",
     "labels.addLibrarian": "Librarian",
     "labels.editLibrarian": "Modify librarian"
+    
     
 }

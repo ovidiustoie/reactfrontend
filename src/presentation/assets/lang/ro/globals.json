@@ -38,5 +38,6 @@
     "globals.confirmCancel": "Nu",
     "globals.search": "Căutare",
     "globals.librarians": "Bibliotecari",
-    "globals.librarianPosition": "Post"
+    "globals.librarianPosition": "Post",
+    "globals.barCode": "Cod de bare" 
 }

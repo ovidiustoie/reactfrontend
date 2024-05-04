@@ -14,6 +14,7 @@ import { Route, Routes } from "react-router-dom";
 import { AppRoute } from "routes";
 import { ConfirmProvider } from "material-ui-confirm"
 import { LibrariansPage } from "@presentation/pages/LibrariansPage";
+import { BookItemsPage } from "@presentation/pages/BookItemsPage";
 
 export function App() {
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
@@ -31,7 +32,7 @@ export function App() {
         {isAdmin && <Route path={AppRoute.UserFiles} element={<UserFilesPage />} />}
         {<Route path={AppRoute.Authors} element={<AuthorsPage />} />}
         {<Route path={AppRoute.Books} element={<BooksPage />} />}
-        {<Route path={AppRoute.BookItems} element={<LibrariansPage />} />}
+        {<Route path={AppRoute.BookItems} element={<BookItemsPage />} />}
         {(isAdmin || isPersonal) && <Route path={AppRoute.Librarians} element={<LibrariansPage />} />}
       </Routes>
     }</ConfirmProvider>
