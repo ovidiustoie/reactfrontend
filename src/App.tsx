@@ -15,6 +15,7 @@ import { AppRoute } from "routes";
 import { ConfirmProvider } from "material-ui-confirm"
 import { LibrariansPage } from "@presentation/pages/LibrariansPage";
 import { BookItemsPage } from "@presentation/pages/BookItemsPage";
+import { FeedbacksPage } from "@presentation/pages/FeedbacksPage";
 
 export function App() {
   const isAdmin = useOwnUserHasRole(UserRoleEnum.Admin);
@@ -30,6 +31,7 @@ export function App() {
         <Route path={AppRoute.RegisterUser} element={<RegisterUserPage />} />
         {isAdmin && <Route path={AppRoute.Users} element={<UsersPage />} />} {/* If the user doesn't have the right role this route shouldn't be used. */}
         {isAdmin && <Route path={AppRoute.UserFiles} element={<UserFilesPage />} />}
+        {isAdmin && <Route path={AppRoute.Feedbacks} element={<FeedbacksPage />} />}
         {<Route path={AppRoute.Authors} element={<AuthorsPage />} />}
         {<Route path={AppRoute.Books} element={<BooksPage />} />}
         {<Route path={AppRoute.BookItems} element={<BookItemsPage />} />}

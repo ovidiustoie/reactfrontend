@@ -39,5 +39,22 @@
     "globals.search": "Căutare",
     "globals.librarians": "Bibliotecari",
     "globals.librarianPosition": "Post",
-    "globals.barCode": "Cod de bare" 
+    "globals.barCode": "Cod de bare",
+    "globals.feedbackScore": "Scor",
+    "globals.feedbackSiteDificulty": "Dificultate",
+    "globals.feedbackSiteGoal": "Scop atins",
+    "globals.feedbackSugestion": "Sugestii",
+    "globals.feedbackRecommendToOthers": "Il recomanzi?",
+    "globals.feedbacks": "Feedbacks",
+	"globals.siteGoal": "Ai reusit sa faci ce vreai ?",
+	"globals.sgYes": "Da",
+	"globals.sgPartially": "Partial",
+	"globals.sgNo": "Nu",
+	"globals.siteDifficulty": "Cat de usor a fost sa gasesti informatii ?",
+	"globals.siteScore": "Ce nota ne dai intre 1 to 5 ?",
+	"globals.sdVeryEasy": "Foarte usor",
+	"globals.sdEasy": "Usor",
+	"globals.sdDifficult": "Dificil",
+	"globals.sdVeryDifficult": "Foarte dificil",
+	"globals.siteRecommendToOthers": "Ne recomanzi la altii?"
 }

@@ -39,6 +39,22 @@
     "globals.search": "Search",
     "globals.librarians": "Librarians",
     "globals.librarianPosition": "Position",
-    "globals.barCode": "Bar Code" 
-    
+    "globals.barCode": "Bar Code",
+    "globals.feedbackScore": "Score",
+    "globals.feedbackSiteDificulty": "Difficulty",
+    "globals.feedbackSiteGoal": "Goal",
+    "globals.feedbackSugestion": "Sugestions",
+    "globals.feedbackRecommendToOthers": "Recommend to others",
+    "globals.feedbacks": "Feedbacks",
+	"globals.siteGoal": "Did you achieve  your goal ?",
+	"globals.sgYes": "Yes",
+	"globals.sgPartially": "Partially",
+	"globals.sgNo": "No",
+	"globals.siteScore": "How easy is it to find information on the site?",
+	"globals.siteDifficulty": "Did you achieve  your goal ?",
+	"globals.sdVeryEasy": "Very easy",
+	"globals.sdEasy": "Easy",
+	"globals.sdDifficult": "Difficult",
+	"globals.sdVeryDifficult": "Very difficult",
+	"globals.siteRecommendToOthers": "Recommend to others ?"
 }

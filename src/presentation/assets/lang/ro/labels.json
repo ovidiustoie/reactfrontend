@@ -14,6 +14,8 @@
     "labels.addUserFile": "Adauga fisier",
     "labels.addBook": "Carte",
     "labels.addLibrarian": "Bibliotecar",
-    "labels.editLibrarian": "Modificare bibliotecar"
+    "labels.editLibrarian": "Modificare bibliotecar",
+	"labels.feedbackMenu": "Feedback",
+	"labels.feedbackTitle": "Parerea ta conteaza"
     
 }

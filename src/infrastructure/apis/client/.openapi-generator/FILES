@@ -3,6 +3,7 @@ apis/AuthorApi.ts
 apis/AuthorizationApi.ts
 apis/BookApi.ts
 apis/BookItemApi.ts
+apis/FeedbackApi.ts
 apis/LibrarianApi.ts
 apis/UserApi.ts
 apis/UserFileApi.ts
@@ -28,6 +29,11 @@ models/BookItemUpdateDTO.ts
 models/BookUpdateDTO.ts
 models/ErrorCodes.ts
 models/ErrorMessage.ts
+models/FeedbackDTO.ts
+models/FeedbackDTOPagedResponse.ts
+models/FeedbackDTOPagedResponseRequestResponse.ts
+models/FeedbackDTORequestResponse.ts
+models/FeedbackUpdateDTO.ts
 models/HttpStatusCode.ts
 models/LibrarianAddDTO.ts
 models/LibrarianDTO.ts
@@ -39,6 +45,8 @@ models/LoginDTO.ts
 models/LoginResponseDTO.ts
 models/LoginResponseDTORequestResponse.ts
 models/RequestResponse.ts
+models/SiteDifficultyEnum.ts
+models/SiteGoalEnum.ts
 models/UserAddDTO.ts
 models/UserDTO.ts
 models/UserDTOPagedResponse.ts

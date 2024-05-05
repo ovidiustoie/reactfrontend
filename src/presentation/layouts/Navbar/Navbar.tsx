@@ -16,6 +16,7 @@ import { useOwnUserHasRole } from '@infrastructure/hooks/useOwnUser';
 import { UserRoleEnum } from '@infrastructure/apis/client';
 import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
 import React from 'react';
+import { FeedbackAddDialog } from '@presentation/components/ui/Dialogs/FeedbackAddDialog';
 /**
  * This is the navigation menu that will stay at the top of the page.
  */
@@ -50,7 +51,7 @@ export const Navbar = () => {
             </Link>
           </Grid>
           <Grid container item direction="column" xs={8}>
-          <Grid // If the user is logged in and it is an admin they can have new menu items shown.
+            <Grid // If the user is logged in and it is an admin they can have new menu items shown.
               container
               item
               direction="row"
@@ -59,7 +60,7 @@ export const Navbar = () => {
               wrap="nowrap"
               columnSpacing={15}
             >
-            {(isAdmin || isPersonnel) && <Grid container item direction="column" xs={1}>
+              {(isAdmin || isPersonnel) && <Grid container item direction="column" xs={1}>
                 <PopupState variant="popover">
                   {(popupState) => (
                     <React.Fragment>
@@ -67,7 +68,7 @@ export const Navbar = () => {
                         {formatMessage({ id: "globals.users" })}
                       </Button>
                       <Menu {...bindMenu(popupState)}>
-                      {isAdmin && <MenuItem onClick={popupState.close}>
+                        {isAdmin && <MenuItem onClick={popupState.close}>
                           <Link to={AppRoute.Users}>
                             {formatMessage({ id: "globals.users" })}
                           </Link>
@@ -82,16 +83,21 @@ export const Navbar = () => {
                             {formatMessage({ id: "globals.librarians" })}
                           </Link>
                         </MenuItem>}
+                        {(isAdmin) && <MenuItem onClick={popupState.close}>
+                          <Link to={AppRoute.Feedbacks}>
+                            {formatMessage({ id: "globals.feedbacks" })}
+                          </Link>
+                        </MenuItem>}
                       </Menu>
                     </React.Fragment>
                   )}
                 </PopupState>
               </Grid>}
               {loggedIn && <Grid container item direction="column" xs={1}>
-              <PopupState variant="popover">
+                <PopupState variant="popover">
                   {(popupState) => (
                     <React.Fragment>
-                      <Button component="div"  variant="text" disableElevation={true} color="inherit" {...bindTrigger(popupState)}>
+                      <Button component="div" variant="text" disableElevation={true} color="inherit" {...bindTrigger(popupState)}>
                         {formatMessage({ id: "globals.books" })}
                       </Button>
                       <Menu {...bindMenu(popupState)}>
@@ -115,7 +121,10 @@ export const Navbar = () => {
           <Grid container item direction="column" xs={1}>
             <NavbarLanguageSelector />
           </Grid>
-          <Grid container item direction="column" xs={2}>
+          <Grid container item direction="column" xs={1}>
+            {loggedIn && <FeedbackAddDialog />}
+          </Grid>
+          <Grid container item direction="column" xs={1}>
             {!loggedIn && <Button color="inherit">  {/* If the user is not logged in show a button that redirects to the login page. */}
               <Link style={{ color: 'white' }} to={AppRoute.Login}>
                 {formatMessage({ id: "globals.login" })}

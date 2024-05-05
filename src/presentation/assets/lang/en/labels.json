@@ -14,7 +14,9 @@
     "labels.addUserFile": "Add file",
     "labels.addBook": "Book",
     "labels.addLibrarian": "Librarian",
-    "labels.editLibrarian": "Modify librarian"
+    "labels.editLibrarian": "Modify librarian",
+	"labels.feedbackMenu": "Feedback",
+	"labels.feedbackTitle": "Feedback"
     
     
 }
